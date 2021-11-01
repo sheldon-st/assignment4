@@ -1,5 +1,9 @@
 package model;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
@@ -16,7 +20,7 @@ public class ImageUtil {
    *
    * @param filename the path of the file. 
    */
-  public static Pixel[][] readPPM(String filename) {
+  public static int[][][] readPPM(String filename) {
     Scanner sc;
     
     try {
@@ -52,16 +56,52 @@ public class ImageUtil {
     System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
 
     Pixel[][] pixels = new Pixel[height][width];
+
+    int[][][] imagePixels = new int[height][width][3];
+
     for (int i=0;i<height;i++) {
         for (int j=0;j<width;j++) {
             int r = sc.nextInt();
             int g = sc.nextInt();
             int b = sc.nextInt();
-            pixels[i][j] = new Pixel(r,g,b);
-            System.out.println("Color of pixel ("+j+","+i+"): "+ r+","+g+","+b);
+            imagePixels[i][j][0] = r;
+            imagePixels[i][j][1] = g;
+            imagePixels[i][j][2] = b;
+
+           // System.out.println("Color of pixel ("+j+","+i+"): "+ r+","+g+","+b);
         }
     }
-    return pixels;
+    return imagePixels;
+  }
+
+  public static void writePPM(int[][][] imagePixels, int width, int height, String filename) {
+    try {
+      BufferedImage bImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+      for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+          bImage.setRGB(j, i, (imagePixels[i][j][0] << 16) | (imagePixels[i][j][1] << 8) |
+                  imagePixels[i][j][2]);
+        }
+      }
+
+     // FileOutputStream outputStream = new FileOutputStream(filename);
+      BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename)));
+      writer.write(("P3\n" + width + " " + height + "\n255\n"));
+
+      for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+          writer.write(imagePixels[i][j][0] + "\n" + imagePixels[i][j][1] + "\n" + imagePixels[i][j][2] + "\n");
+         // writer.write("\n");
+        }
+      }
+      writer.flush();
+      writer.close();
+      System.out.println("Saving ran");
+    }
+
+    catch (Exception e) {
+      System.out.println("Error: " + e);
+    }
   }
 
   //demo main

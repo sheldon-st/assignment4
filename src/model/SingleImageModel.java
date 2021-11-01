@@ -2,45 +2,18 @@ package model;
 
 import java.io.DataOutputStream;
 
-public class SingleImageModel implements model.IModel {
-  private String input;
-
-  private Pixel[][] image;
-  private String imageName;
+public class SingleImageModel implements IModel {
+  private int[][][] image;
   private String imagePath;
 
   public SingleImageModel() {
-    input = "";
-    imageName = "";
     imagePath = "";
     image = null;
   }
 
   public SingleImageModel(String imagePath) {
-    input = "";
-    imageName = "";
     this.imagePath = imagePath;
-    image = null;
-  }
-
-  @Override
-  public void setString(String i) {
-    input = i;
-  }
-
-  @Override
-  public String getString() {
-    return input;
-  }
-
-  @Override
-  public void setName(String i) {
-    imageName = i;
-  }
-
-  @Override
-  public String getName() {
-    return "Image Name:" + imageName;
+    image = ImageUtil.readPPM(this.imagePath);
   }
 
   @Override
@@ -56,7 +29,33 @@ public class SingleImageModel implements model.IModel {
   @Override
   public void setImage() {
     // use image utility to get image
-    image = ImageUtil.readPPM(this.imagePath);
+    System.out.println("Sets image to:");
+    System.out.println(ImageUtil.readPPM(this.imagePath));
+    this.image = ImageUtil.readPPM(this.imagePath);
     // image = new
+  }
+
+
+  @Override
+  public int[][][] getImage() {
+    System.out.println("Gets image:");
+
+    System.out.println(this.image);
+
+    return this.image;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof SingleImageModel) {
+      SingleImageModel other = (SingleImageModel) o;
+      return this.image.equals(other.image);
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return image.hashCode();
   }
 }
