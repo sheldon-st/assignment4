@@ -1,4 +1,4 @@
-package src.controller;
+package controller;
 
 public interface IController {
     void go();

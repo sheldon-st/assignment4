@@ -1,4 +1,4 @@
-package src.view;
+package view;
 
 public interface IView {
     void showString(String s);
