@@ -161,6 +161,73 @@ public class IMETextController implements controller.IController {
                     view.showString("Image saved... ");
                     break;
 
+                case "intensity-component":
+                    //prints command
+                    view.showStringEntry();
+                    view.showString(option);
+
+                    view.showString("Attempting to create a greyscale image with the " +
+                            "red-component of the image with the given name, and refer to it " +
+                            "henceforth in the program by the given destination name. ");
+                    //accept string input for name (CHECK HERE)
+                    String originImage = in.next();
+                    String newIm = in.next();
+                    view.showString(this.model.getPath());
+                    //give path to model
+                    Filter valueImg =
+                            new  FilterImage(galleryModel.images.get(originImage).getImage());
+
+                    valueImg.valueScale();
+                    galleryModel.images.put(newIm,
+                            new SingleImageModel(valueImg.getNewImage()));
+                    view.showString("Image saved... ");
+                    break;
+
+                case "value-component":
+                    //prints command
+                    view.showStringEntry();
+                    view.showString(option);
+
+                    view.showString("Attempting to create a greyscale image with the " +
+                            "red-component of the image with the given name, and refer to it " +
+                            "henceforth in the program by the given destination name. ");
+                    //accept string input for name (CHECK HERE)
+                     String originIm = in.next();
+                     String newI = in.next();
+                    view.showString(this.model.getPath());
+                    //give path to model
+                    Filter intenseImg =
+                            new  FilterImage(galleryModel.images.get(originIm).getImage());
+
+                    intenseImg.intensityScale();
+                    galleryModel.images.put(newI,
+                            new SingleImageModel(intenseImg.getNewImage()));
+                    view.showString("Image saved... ");
+                    break;
+
+                case "luma-component":
+                    //prints command
+                    view.showStringEntry();
+                    view.showString(option);
+
+                    view.showString("Attempting to create a greyscale image with the " +
+                            "red-component of the image with the given name, and refer to it " +
+                            "henceforth in the program by the given destination name. ");
+                    //accept string input for name (CHECK HERE)
+                    String originI = in.next();
+                    String img = in.next();
+                    view.showString(this.model.getPath());
+                    //give path to model
+                    Filter lumaImg =
+                            new  FilterImage(galleryModel.images.get(originI).getImage());
+
+                    lumaImg.lumaScale();
+                    galleryModel.images.put(img,
+                            new SingleImageModel(lumaImg.getNewImage()));
+                    view.showString("Image saved... ");
+                    break;
+
+
                 case "E":
                     //ask for string input
                     view.showStringEntry();
@@ -189,3 +256,9 @@ public class IMETextController implements controller.IController {
 // save res/blueK.ppm blueK
 // green-component k1 greenK
 // save res/greenK.ppm greenK
+// value-component k1 valueK
+// save res/valueK.ppm valueK
+// intensity-component k1 intensK
+// save res/intensK.ppm intensK
+// luma-component k1 lumaK
+// save res/lumaK.ppm lumaK

@@ -15,8 +15,8 @@ public class FilterImage implements Filter {
   public void redScale() {
     for (int i = 0; i < image.length; i++) {
       for (int j = 0; j < image[0].length; j++) {
-        image[i][j][1] = 0;
-        image[i][j][2] = 0;
+        image[i][j][1] = image[i][j][0];
+        image[i][j][2] = image[i][j][0];
       }
     }
   }
@@ -24,8 +24,8 @@ public class FilterImage implements Filter {
   public void blueScale() {
     for (int i = 0; i < image.length; i++) {
       for (int j = 0; j < image[0].length; j++) {
-        image[i][j][0] = 0;
-        image[i][j][1] = 0;
+        image[i][j][0] = image[i][j][2];
+        image[i][j][1] = image[i][j][2];
       }
     }
 
@@ -34,11 +34,49 @@ public class FilterImage implements Filter {
   public void greenScale() {
     for (int i = 0; i < image.length; i++) {
       for (int j = 0; j < image[0].length; j++) {
-        image[i][j][0] = 0;
-        image[i][j][2] = 0;
+        image[i][j][0] = image[i][j][1];
+        image[i][j][2] = image[i][j][1];
       }
     }
   }
+
+  public void valueScale() {
+    int maxVal=0;
+    for (int i = 0; i < image.length; i++) {
+      for (int j = 0; j < image[0].length; j++) {
+        maxVal = Math.max(Math.max(image[i][j][0],image[i][j][1]),image[i][j][2]);
+        image[i][j][0] = maxVal;
+        image[i][j][1] = maxVal;
+        image[i][j][2] = maxVal;
+      }
+    }
+  }
+
+  public void intensityScale() {
+    int avgVal=0;
+    for (int i = 0; i < image.length; i++) {
+      for (int j = 0; j < image[0].length; j++) {
+        avgVal = (image[i][j][0]+ image[i][j][1] + image[i][j][2]) / 3 ;
+        image[i][j][0] = avgVal;
+        image[i][j][1] = avgVal;
+        image[i][j][2] = avgVal;
+      }
+    }
+  }
+
+  public void lumaScale() {
+    int luma=0;
+    for (int i = 0; i < image.length; i++) {
+      for (int j = 0; j < image[0].length; j++) {
+        luma = (int) Math.round((0.2126 * image[i][j][0])+ (0.7152* image[i][j][1]) +
+                (0.0722 * image[i][j][2]));
+        image[i][j][0] = luma;
+        image[i][j][1] = luma;
+        image[i][j][2] = luma;
+      }
+    }
+  }
+
 
   public int[][][] copyImage(int[][][] imgToCopy) {
     int[][][] newImage = new int[imgToCopy.length][imgToCopy[0].length][3];
@@ -51,5 +89,7 @@ public class FilterImage implements Filter {
     }
       return newImage;
     }
+
+
 
 }
