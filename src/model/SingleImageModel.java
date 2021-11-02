@@ -16,6 +16,11 @@ public class SingleImageModel implements IModel {
     image = ImageUtil.readPPM(this.imagePath);
   }
 
+  public SingleImageModel(int[][][] image) {
+    this.imagePath = "";
+    this.image = image;
+  }
+
   @Override
   public void setPath(String i) {
     imagePath = i;
@@ -28,22 +33,16 @@ public class SingleImageModel implements IModel {
 
   @Override
   public void setImage() {
-    // use image utility to get image
-    System.out.println("Sets image to:");
-    System.out.println(ImageUtil.readPPM(this.imagePath));
     this.image = ImageUtil.readPPM(this.imagePath);
-    // image = new
   }
 
 
   @Override
   public int[][][] getImage() {
-    System.out.println("Gets image:");
-
     System.out.println(this.image);
-
     return this.image;
   }
+
 
   @Override
   public boolean equals(Object o) {
@@ -58,4 +57,6 @@ public class SingleImageModel implements IModel {
   public int hashCode() {
     return image.hashCode();
   }
+
+
 }

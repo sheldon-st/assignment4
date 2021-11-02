@@ -104,10 +104,13 @@ public class IMETextController implements controller.IController {
                     String newImg = in.next();
                     view.showString(this.model.getPath());
                     //give path to model
-                    IModel temp = galleryModel.images.get(imageName);
-                    Filter newModel = new  FilterImage(temp);
+
+                    Filter newModel =
+                            new  FilterImage(galleryModel.images.get(imageName).getImage());
+
                     newModel.redScale();
-                    galleryModel.images.put(newImg, newModel.getModel());
+
+                    galleryModel.images.put(newImg, new SingleImageModel(newModel.getNewImage()));
                     view.showString("Image saved... ");
                     break;
 
@@ -123,11 +126,14 @@ public class IMETextController implements controller.IController {
                      String prevName = in.next();
                      String newImgName = in.next();
                     view.showString(this.model.getPath());
-                    //give path to model
-                     IModel tempBlue = galleryModel.images.get(prevName);
-                     Filter modelBlue = new  FilterImage(tempBlue);
-                    galleryModel.images.put(newImgName, modelBlue.getModel());
-                    modelBlue.blueScale();
+
+                    Filter newBlueModel =
+                            new  FilterImage(galleryModel.images.get(prevName).getImage());
+
+                    newBlueModel.blueScale();
+
+                    galleryModel.images.put(newImgName,
+                            new SingleImageModel(newBlueModel.getNewImage()));
                     view.showString("Image saved... ");
                     break;
 
@@ -144,10 +150,14 @@ public class IMETextController implements controller.IController {
                     String nImg = in.next();
                     view.showString(this.model.getPath());
                     //give path to model
-                    IModel tempGreen = galleryModel.images.get(imag);
-                    Filter modelGreen = new  FilterImage(tempGreen);
-                    modelGreen.greenScale();
-                    galleryModel.images.put(nImg, modelGreen.getModel());
+
+                    Filter newGreenModel =
+                            new  FilterImage(galleryModel.images.get(imag).getImage());
+
+                    newGreenModel.greenScale();
+
+                    galleryModel.images.put(nImg,
+                            new SingleImageModel(newGreenModel.getNewImage()));
                     view.showString("Image saved... ");
                     break;
 
@@ -156,8 +166,6 @@ public class IMETextController implements controller.IController {
                     view.showStringEntry();
                     in.nextLine();
                     input = in.nextLine();
-                    //give to model
-                    //model.setString(input);
                     break;
                 case "Q":
                     quit = true;

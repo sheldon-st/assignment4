@@ -4,5 +4,6 @@ public interface Filter {
   void redScale();
   void blueScale();
   void greenScale();
-  IModel getModel();
+  int[][][] getNewImage();
+  int[][][] copyImage(int[][][] imgToCopy);
 }
