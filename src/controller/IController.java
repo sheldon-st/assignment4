@@ -1,5 +1,11 @@
 package controller;
 
+/**
+ * Interface for the controller.
+ */
 public interface IController {
-    void go();
+  /**
+   * Starts the program.
+   */
+  void go();
 }

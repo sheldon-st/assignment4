@@ -1,17 +1,33 @@
 package model;
 
+/**
+ * This class implements the Filter interface. It represents a class with the possible filters on
+ * an image such as grayscale, value, luma, and intensity component.
+ */
 public class FilterImage implements Filter {
   protected int[][][] image;
+  private int width;
+  private int height;
 
+  /**
+   * Constructor for FilterImage takes in image to apply the filter on and copies into a new blank
+   * image and applies the filter.
+   *
+   * @param image image to be filtered
+   */
   public FilterImage(int[][][] image) {
     this.image = copyImage(image);
+    this.height = image.length;
+    this.width = image[0].length;
   }
 
+  @Override
   public int[][][] getNewImage() {
     return this.image;
 
   }
 
+  @Override
   public void redScale() {
     for (int i = 0; i < image.length; i++) {
       for (int j = 0; j < image[0].length; j++) {
@@ -21,6 +37,7 @@ public class FilterImage implements Filter {
     }
   }
 
+  @Override
   public void blueScale() {
     for (int i = 0; i < image.length; i++) {
       for (int j = 0; j < image[0].length; j++) {
@@ -31,6 +48,7 @@ public class FilterImage implements Filter {
 
   }
 
+  @Override
   public void greenScale() {
     for (int i = 0; i < image.length; i++) {
       for (int j = 0; j < image[0].length; j++) {
@@ -40,11 +58,12 @@ public class FilterImage implements Filter {
     }
   }
 
+  @Override
   public void valueScale() {
-    int maxVal=0;
+    int maxVal = 0;
     for (int i = 0; i < image.length; i++) {
       for (int j = 0; j < image[0].length; j++) {
-        maxVal = Math.max(Math.max(image[i][j][0],image[i][j][1]),image[i][j][2]);
+        maxVal = Math.max(Math.max(image[i][j][0], image[i][j][1]), image[i][j][2]);
         image[i][j][0] = maxVal;
         image[i][j][1] = maxVal;
         image[i][j][2] = maxVal;
@@ -52,11 +71,12 @@ public class FilterImage implements Filter {
     }
   }
 
+  @Override
   public void intensityScale() {
-    int avgVal=0;
+    int avgVal = 0;
     for (int i = 0; i < image.length; i++) {
       for (int j = 0; j < image[0].length; j++) {
-        avgVal = (image[i][j][0]+ image[i][j][1] + image[i][j][2]) / 3 ;
+        avgVal = (image[i][j][0] + image[i][j][1] + image[i][j][2]) / 3;
         image[i][j][0] = avgVal;
         image[i][j][1] = avgVal;
         image[i][j][2] = avgVal;
@@ -64,11 +84,12 @@ public class FilterImage implements Filter {
     }
   }
 
+  @Override
   public void lumaScale() {
-    int luma=0;
+    int luma = 0;
     for (int i = 0; i < image.length; i++) {
       for (int j = 0; j < image[0].length; j++) {
-        luma = (int) Math.round((0.2126 * image[i][j][0])+ (0.7152* image[i][j][1]) +
+        luma = (int) Math.round((0.2126 * image[i][j][0]) + (0.7152 * image[i][j][1]) +
                 (0.0722 * image[i][j][2]));
         image[i][j][0] = luma;
         image[i][j][1] = luma;
@@ -77,19 +98,56 @@ public class FilterImage implements Filter {
     }
   }
 
-
+  @Override
   public int[][][] copyImage(int[][][] imgToCopy) {
     int[][][] newImage = new int[imgToCopy.length][imgToCopy[0].length][3];
     for (int i = 0; i < imgToCopy.length; i++) {
       for (int j = 0; j < imgToCopy[0].length; j++) {
-        newImage[i][j][0] =  imgToCopy[i][j][0];
-        newImage[i][j][1] =  imgToCopy[i][j][1];
-        newImage[i][j][2] =  imgToCopy[i][j][2];
+        newImage[i][j][0] = imgToCopy[i][j][0];
+        newImage[i][j][1] = imgToCopy[i][j][1];
+        newImage[i][j][2] = imgToCopy[i][j][2];
       }
     }
-      return newImage;
+    return newImage;
+  }
+
+  @Override
+  public void flipHorizontally() {
+    System.out.println("flipping image: ");
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width/2; j++) {
+        int[] tmp = image[i][width-j-1].clone();
+        image[i][width-j-1] = image[i][j].clone();
+        image[i][j] = tmp;
+      }
     }
+  }
 
+@Override
+  public void flipVertically() {
+    System.out.println("flipping image: ");
+    System.out.println(this.image.length );
+    System.out.println(this.width);
+    System.out.println(this.height);
 
+    for (int i = 0; i < height/2; i++) {
+      for (int j = 0; j < width; j++) {
+        int[] tmp = image[height-i-1][j].clone();
+        image[height-i-1][j] = image[i][j].clone();
+        image[i][j] = tmp;
+      }
+    }
+  }
+
+ @Override
+  public void brighten(int increment) {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        for (int k = 0; k < 3; k++) {
+          image[i][j][k] = Math.min(image[i][j][k] + increment, 255);
+        }
+      }
+    }
+  }
 
 }
