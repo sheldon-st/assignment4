@@ -55,8 +55,6 @@ public class ImageUtil {
     int maxValue = sc.nextInt();
     System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
 
-    Pixel[][] pixels = new Pixel[height][width];
-
     int[][][] imagePixels = new int[height][width][3];
 
     for (int i=0;i<height;i++) {

@@ -1,12 +1,9 @@
 package model;
-
-import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
-import java.util.Arrays;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
 
+/**
+ * This class contains all the images saved/loaded from the script into a hashmap.
+ */
 public class IMEModel {
   public HashMap<String, IModel> images;
 
@@ -28,10 +25,6 @@ public class IMEModel {
     System.out.println("Height: " + image.getImage().length);
     System.out.println("Width: " + image.getImage()[0].length);
   }
-
-
-  // gets the image with the given name
-
 
   // duplicates an image with given name as a new image
   public void duplicateImage(String imageName, String newImageName) {

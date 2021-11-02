@@ -1,5 +1,7 @@
 package controller;
 
+import model.Filter;
+import model.FilterImage;
 import model.IMEModel;
 import model.IModel;
 import model.SingleImageModel;
@@ -88,6 +90,67 @@ public class IMETextController implements controller.IController {
 
                     view.showString("Image saved... ");
                     break;
+
+                case "red-component":
+                    //prints command
+                    view.showStringEntry();
+                    view.showString(option);
+
+                    view.showString("Attempting to create a greyscale image with the " +
+                            "red-component of the image with the given name, and refer to it " +
+                            "henceforth in the program by the given destination name. ");
+                    //accept string input for name (CHECK HERE)
+                    String imageName = in.next();
+                    String newImg = in.next();
+                    view.showString(this.model.getPath());
+                    //give path to model
+                    IModel temp = galleryModel.images.get(imageName);
+                    Filter newModel = new  FilterImage(temp);
+                    newModel.redScale();
+                    galleryModel.images.put(newImg, newModel.getModel());
+                    view.showString("Image saved... ");
+                    break;
+
+                case "blue-component":
+                    //prints command
+                    view.showStringEntry();
+                    view.showString(option);
+
+                    view.showString("Attempting to create a greyscale image with the " +
+                            "red-component of the image with the given name, and refer to it " +
+                            "henceforth in the program by the given destination name. ");
+                    //accept string input for name (CHECK HERE)
+                     String prevName = in.next();
+                     String newImgName = in.next();
+                    view.showString(this.model.getPath());
+                    //give path to model
+                     IModel tempBlue = galleryModel.images.get(prevName);
+                     Filter modelBlue = new  FilterImage(tempBlue);
+                    galleryModel.images.put(newImgName, modelBlue.getModel());
+                    modelBlue.blueScale();
+                    view.showString("Image saved... ");
+                    break;
+
+                case "green-component":
+                    //prints command
+                    view.showStringEntry();
+                    view.showString(option);
+
+                    view.showString("Attempting to create a greyscale image with the " +
+                            "red-component of the image with the given name, and refer to it " +
+                            "henceforth in the program by the given destination name. ");
+                    //accept string input for name (CHECK HERE)
+                    String imag = in.next();
+                    String nImg = in.next();
+                    view.showString(this.model.getPath());
+                    //give path to model
+                    IModel tempGreen = galleryModel.images.get(imag);
+                    Filter modelGreen = new  FilterImage(tempGreen);
+                    modelGreen.greenScale();
+                    galleryModel.images.put(nImg, modelGreen.getModel());
+                    view.showString("Image saved... ");
+                    break;
+
                 case "E":
                     //ask for string input
                     view.showStringEntry();
@@ -110,3 +173,11 @@ public class IMETextController implements controller.IController {
 // comments for testing
 // load res/Koala.ppm k1
 // save res/Koala2.ppm k1
+// save res/blueK.ppm blueK
+
+// red-component k1 redK
+// save res/redK.ppm redK
+// blue-component k1 blueK
+// save res/blueK.ppm blueK
+// green-component k1 greenK
+// save res/greenK.ppm greenK
