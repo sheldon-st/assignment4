@@ -14,7 +14,6 @@ import java.io.FileInputStream;
  */
 public class ImageUtil {
 
-
   /**
    * Read an image file in the PPM format and print the colors.
    *
@@ -65,8 +64,6 @@ public class ImageUtil {
             imagePixels[i][j][0] = r;
             imagePixels[i][j][1] = g;
             imagePixels[i][j][2] = b;
-
-           // System.out.println("Color of pixel ("+j+","+i+"): "+ r+","+g+","+b);
         }
     }
     return imagePixels;
@@ -82,14 +79,12 @@ public class ImageUtil {
         }
       }
 
-     // FileOutputStream outputStream = new FileOutputStream(filename);
       BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename)));
       writer.write(("P3\n" + width + " " + height + "\n255\n"));
 
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
           writer.write(imagePixels[i][j][0] + "\n" + imagePixels[i][j][1] + "\n" + imagePixels[i][j][2] + "\n");
-         // writer.write("\n");
         }
       }
       writer.flush();
@@ -102,18 +97,14 @@ public class ImageUtil {
     }
   }
 
-  //demo main
-  public static void main(String []args) {
-      String filename;
-      
-      if (args.length>0) {
-          filename = args[0];
-      }
-      else {
-          filename = "sample.ppm";
-      }
-      
-      ImageUtil.readPPM(filename);
+  /**
+   * Reads an image from a file and returns it.
+   *
+   * @return the given image.
+   */
+  public static int[][][] readImage(String imagePath) {
+    System.out.println(ImageUtil.readPPM(imagePath));
+    return ImageUtil.readPPM(imagePath);
   }
 }
 

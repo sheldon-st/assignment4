@@ -1,30 +1,35 @@
 package controller;
-import model.Filter;
-import model.FilterImage;
+
 import model.IMEModel;
 import model.IModel;
+import model.ImageUtil;
 import model.SingleImageModel;
 import view.IView;
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class IMETextController implements controller.IController {
-    private final Scanner in;
-    private final IView view;
-    private final IModel model;
+public class IMETextController implements IController {
+    private Scanner in;
+    private IView view;
 
-    private final IMEModel galleryModel;
+    private IMEModel galleryModel;
 
 
+    /**
+     * Constructor for IMETextController
+     * @param model the model to be used
+     * @param in the scanner to be used
+     * @param view the view to be used
+     */
     public IMETextController(IModel model,InputStream in,IView view) {
-
         this.view = view;
         this.in = new Scanner(in);
-
         this.galleryModel = new IMEModel();
-        this.model = model;
     }
 
+    /**
+     * Starts the program.
+     */
     public void go() {
         boolean quit = false;
 
@@ -35,34 +40,41 @@ public class IMETextController implements controller.IController {
             view.showOptions();
             //accept user input
             String option = in.next();
+            view.showString(option);
+            String input = in.next();
+            IModel tempImage = new SingleImageModel();
+
             switch (option) {
                 case "load":
-                    IModel tempImage = new SingleImageModel();
+                    tempImage = new SingleImageModel();
                     //prints command
                     //view.showStringEntry();
-                    view.showString(option);
                     view.showString("Attempting to load image from given path ... ");
 
-
                     //accept string input for path (CHECK HERE)
-                    String input = in.next();
+
                     //give path to model
-                    tempImage.setPath(input);
-                    view.showString(tempImage.getPath());
+                    tempImage.setImage(ImageUtil.readImage(input));
+                    //view.showString(tempImage.getPath());
                     //adds to gallery
                     //accept string input for name (CHECK HERE)
-                    input = in.next();
+                    String name = in.next();
 
                     //try and load image
-                    tempImage.setImage();
-                    galleryModel.loadImage(input, tempImage);
+                    galleryModel.loadImage(name, tempImage);
                     view.showString("Image successfully loaded");
 
+
+                    for (IModel i : galleryModel.getGallery()) {
+                        System.out.println(i.getImage());
+                    }
+
+                    //System.out.println(galleryModel.images.get("k1"));
 
                     break;
                 case "save":
                     //prints command
-                    view.showStringEntry();
+                    //view.showStringEntry();
                     view.showString(option);
 
                     view.showString("Attempting to save image to given path ... ");
@@ -70,153 +82,126 @@ public class IMETextController implements controller.IController {
                     //accept string input for path (CHECK HERE)
                    // input = in.next();
                     //give path to model
-                    String path = in.next();
+                    //String dest = in.next();
 
-                    view.showString(this.model.getPath());
+                   // view.showString(this.model.getPath());
 
                     //accept string input for name (CHECK HERE)
-                    input = in.next();
+                    name = in.next();
                     //view.showString(this.model.getName());
                     //give path to model
-                    galleryModel.saveImage(path, input);
+                    galleryModel.saveImage(input, name);
 
                     view.showString("Image saved... ");
                     break;
-
-                case "red-component":
+                case "horizontal-flip":
                     //prints command
-                    view.showStringEntry();
+                    //view.showStringEntry();
                     view.showString(option);
 
-                    view.showString("Attempting to create a greyscale image with the " +
-                            "red-component of the image with the given name, and refer to it " +
-                            "henceforth in the program by the given destination name. ");
-                    //accept string input for name (CHECK HERE)
-                    String imageName = in.next();
-                    String newImg = in.next();
-                    view.showString(this.model.getPath());
-                    //give path to model
+                    view.showString("Attempting to flip given image ... ");
 
-                    Filter newModel =
-                            new  FilterImage(galleryModel.images.get(imageName).getImage());
+                    //accept string input for dest (CHECK HERE)
+                    //String source = in.next();
+                    System.out.println(input);
 
-                    newModel.redScale();
+                    //accept string input for dest (CHECK HERE)
+                    String dest = in.next();
+                    System.out.println(dest);
 
-                    galleryModel.images.put(newImg, new SingleImageModel(newModel.getNewImage()));
-                    view.showString("Image saved... ");
+
+                    tempImage = new SingleImageModel(galleryModel.getImage(input));
+
+                    System.out.println(tempImage);
+                    //tempImage.setImage(galleryModel.getImage(source));
+                    tempImage.flipHorizontally();
+
+                    galleryModel.loadImage(dest, tempImage);
+
+                    for (IModel i : galleryModel.getGallery()) {
+                        System.out.println(i.getImage());
+                    }
+
+                    view.showString("Image flipped... ");
                     break;
-
-                case "blue-component":
+                case "vertical-flip":
                     //prints command
-                    view.showStringEntry();
+                    //view.showStringEntry();
                     view.showString(option);
 
-                    view.showString("Attempting to create a greyscale image with the " +
-                            "red-component of the image with the given name, and refer to it " +
-                            "henceforth in the program by the given destination name. ");
-                    //accept string input for name (CHECK HERE)
-                     imageName = in.next();
-                     newImg = in.next();
-                    view.showString(this.model.getPath());
+                    view.showString("Attempting to flip given image ... ");
 
-                     newModel =
-                            new  FilterImage(galleryModel.images.get(imageName).getImage());
+                    //accept string input for dest (CHECK HERE)
+                    //String source = in.next();
+                    System.out.println(input);
 
-                    newModel.blueScale();
+                    //accept string input for dest (CHECK HERE)
+                    dest = in.next();
+                    System.out.println(dest);
 
-                    galleryModel.images.put(newImg, new SingleImageModel(newModel.getNewImage()));
-                    view.showString("Image saved... ");
+
+                    tempImage = new SingleImageModel(galleryModel.getImage(input));
+
+                    System.out.println(tempImage);
+                    //tempImage.setImage(galleryModel.getImage(source));
+                    tempImage.flipVertically();
+
+                    galleryModel.loadImage(dest, tempImage);
+
+                    for (IModel i : galleryModel.getGallery()) {
+                        System.out.println(i.getImage());
+                    }
+
+                    view.showString("Image flipped... ");
                     break;
-
-                case "green-component":
+                case "brighten":
                     //prints command
-                    view.showStringEntry();
+                    //view.showStringEntry();
                     view.showString(option);
 
-                    view.showString("Attempting to create a greyscale image with the " +
-                            "red-component of the image with the given name, and refer to it " +
-                            "henceforth in the program by the given destination name. ");
-                    //accept string input for name (CHECK HERE)
-                    //accept string input for name (CHECK HERE)
-                    imageName = in.next();
-                    newImg = in.next();
-                    view.showString(this.model.getPath());
+                    view.showString("Attempting to brighten given image ... ");
 
-                    newModel =
-                            new  FilterImage(galleryModel.images.get(imageName).getImage());
+                    //accept string input for dest (CHECK HERE)
+                    //String source = in.next();
+                    System.out.println(input);
+                    int incrementInt = 0;
+                    try {
+                        incrementInt = Integer.parseInt(input);
+                    } catch (NumberFormatException e) {
+                        view.showString("Invalid input");
+                    }
 
-                    newModel.redScale();
 
-                    galleryModel.images.put(newImg, new SingleImageModel(newModel.getNewImage()));
-                    view.showString("Image saved... ");
+                    //accept string input for dest (CHECK HERE)
+                    String source = in.next();
+                    System.out.println(source);
+
+                    //accept string input for dest (CHECK HERE)
+                    dest = in.next();
+                    System.out.println(dest);
+
+
+                    tempImage = new SingleImageModel(galleryModel.getImage(source));
+
+                    System.out.println(tempImage);
+                    //tempImage.setImage(galleryModel.getImage(source));
+                    tempImage.brighten(incrementInt);
+
+                    galleryModel.loadImage(dest, tempImage);
+
+                    for (IModel i : galleryModel.getGallery()) {
+                        System.out.println(i.getImage());
+                    }
+
+                    view.showString("Image flipped... ");
                     break;
-
-                case "intensity-component":
-                    //prints command
-                    view.showStringEntry();
-                    view.showString(option);
-                    view.showString("Attempting to create a greyscale image with the " +
-                            "red-component of the image with the given name, and refer to it " +
-                            "henceforth in the program by the given destination name. ");
-                    //accept string input for name (CHECK HERE)
-                    imageName = in.next();
-                    newImg = in.next();
-                    view.showString(this.model.getPath());
-
-                    newModel =
-                            new  FilterImage(galleryModel.images.get(imageName).getImage());
-
-                    newModel.intensityScale();
-
-                    galleryModel.images.put(newImg, new SingleImageModel(newModel.getNewImage()));
-                    view.showString("Image saved... ");
-                    break;
-                case "value-component":
-                    view.showStringEntry();
-                    view.showString(option);
-                    view.showString("Attempting to create a greyscale image with the " +
-                            "red-component of the image with the given name, and refer to it " +
-                            "henceforth in the program by the given destination name. ");
-                    //accept string input for name (CHECK HERE)
-                    imageName = in.next();
-                    newImg = in.next();
-                    view.showString(this.model.getPath());
-
-                    newModel =
-                            new  FilterImage(galleryModel.images.get(imageName).getImage());
-
-                    newModel.valueScale();
-
-                    galleryModel.images.put(newImg, new SingleImageModel(newModel.getNewImage()));
-                    view.showString("Image saved... ");
-                    break;
-
-                case "luma-component":
-                    view.showStringEntry();
-                    view.showString(option);
-                    view.showString("Attempting to create a greyscale image with the " +
-                            "red-component of the image with the given name, and refer to it " +
-                            "henceforth in the program by the given destination name. ");
-                    //accept string input for name (CHECK HERE)
-                    imageName = in.next();
-                    newImg = in.next();
-                    view.showString(this.model.getPath());
-
-                    newModel =
-                            new  FilterImage(galleryModel.images.get(imageName).getImage());
-
-                    newModel.lumaScale();
-
-                    galleryModel.images.put(newImg, new SingleImageModel(newModel.getNewImage()));
-                    view.showString("Image saved... ");
-                    break;
-
-
                 case "E":
                     //ask for string input
-                    view.showStringEntry();
+                    //view.showStringEntry();
                     in.nextLine();
                     input = in.nextLine();
+                    //give to model
+                    //model.setString(input);
                     break;
                 case "Q":
                     quit = true;
@@ -232,18 +217,9 @@ public class IMETextController implements controller.IController {
 // comments for testing
 // load res/Koala.ppm k1
 // save res/Koala2.ppm k1
-// load res/venice.ppm k1
-// save res/veniceSave.ppm k1
+// horizontal-flip k1 k3
+// vertical-flip k1 k3
+// brighten 10 k1 k10
+// brighten 50 k1 k20
 
-// red-component k1 redK
-// save res/redK.ppm redK
-// blue-component k1 blueK
-// save res/blueK.ppm blueK
-// green-component k1 greenK
-// save res/greenK.ppm greenK
-// value-component k1 valueK
-// save res/valueK.ppm valueK
-// intensity-component k1 intensK
-// save res/intensK.ppm intensK
-// luma-component k1 lumaK
-// save res/lumaK.ppm lumaK
+// save res/Koala3.ppm k3

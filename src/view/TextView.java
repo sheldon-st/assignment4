@@ -2,17 +2,33 @@ package view;
 
 import java.io.PrintStream;
 
+/**
+ * This class represents a text view for the IMEModel.
+ */
 public class TextView implements view.IView {
     private PrintStream out;
 
+    /**
+     * Constructor.
+     *
+     * @param out the output stream to write to.
+     */
     public TextView(PrintStream out) {
         this.out = out;
     }
 
+    /**
+     * Prints the given string to the output stream.
+     *
+     * @param s the string to print.
+     */
     public void showString(String s) {
         out.println(s);
     }
 
+    /**
+     * Prints the menu to the output stream.
+     */
     public void showOptions() {
         //print the UI
         out.println("Menu: ");
@@ -46,9 +62,9 @@ public class TextView implements view.IView {
         out.print("Enter your choice: ");
     }
 
-    public void showStringEntry() {
-        out.print("\nCommand: ");
-    }
+    /**
+     * Prints the error message to the output stream.
+     */
     public void showOptionError() {
         out.print("\nInvalid option. Please try again.");
     }
