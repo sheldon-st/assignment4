@@ -1,5 +1,4 @@
 package controller;
-
 import model.Filter;
 import model.FilterImage;
 import model.IMEModel;
@@ -10,11 +9,11 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class IMETextController implements controller.IController {
-    private Scanner in;
-    private IView view;
-    private IModel model;
+    private final Scanner in;
+    private final IView view;
+    private final IModel model;
 
-    private IMEModel galleryModel;
+    private final IMEModel galleryModel;
 
 
     public IMETextController(IModel model,InputStream in,IView view) {
@@ -59,13 +58,6 @@ public class IMETextController implements controller.IController {
                     galleryModel.loadImage(input, tempImage);
                     view.showString("Image successfully loaded");
 
-
-
-                    for (IModel i : galleryModel.getGallery()) {
-                        System.out.println(i.getImage());
-                    }
-
-                    System.out.println(galleryModel.images.get("k1"));
 
                     break;
                 case "save":
@@ -123,17 +115,16 @@ public class IMETextController implements controller.IController {
                             "red-component of the image with the given name, and refer to it " +
                             "henceforth in the program by the given destination name. ");
                     //accept string input for name (CHECK HERE)
-                     String prevName = in.next();
-                     String newImgName = in.next();
+                     imageName = in.next();
+                     newImg = in.next();
                     view.showString(this.model.getPath());
 
-                    Filter newBlueModel =
-                            new  FilterImage(galleryModel.images.get(prevName).getImage());
+                     newModel =
+                            new  FilterImage(galleryModel.images.get(imageName).getImage());
 
-                    newBlueModel.blueScale();
+                    newModel.blueScale();
 
-                    galleryModel.images.put(newImgName,
-                            new SingleImageModel(newBlueModel.getNewImage()));
+                    galleryModel.images.put(newImg, new SingleImageModel(newModel.getNewImage()));
                     view.showString("Image saved... ");
                     break;
 
@@ -146,18 +137,17 @@ public class IMETextController implements controller.IController {
                             "red-component of the image with the given name, and refer to it " +
                             "henceforth in the program by the given destination name. ");
                     //accept string input for name (CHECK HERE)
-                    String imag = in.next();
-                    String nImg = in.next();
+                    //accept string input for name (CHECK HERE)
+                    imageName = in.next();
+                    newImg = in.next();
                     view.showString(this.model.getPath());
-                    //give path to model
 
-                    Filter newGreenModel =
-                            new  FilterImage(galleryModel.images.get(imag).getImage());
+                    newModel =
+                            new  FilterImage(galleryModel.images.get(imageName).getImage());
 
-                    newGreenModel.greenScale();
+                    newModel.redScale();
 
-                    galleryModel.images.put(nImg,
-                            new SingleImageModel(newGreenModel.getNewImage()));
+                    galleryModel.images.put(newImg, new SingleImageModel(newModel.getNewImage()));
                     view.showString("Image saved... ");
                     break;
 
@@ -165,65 +155,59 @@ public class IMETextController implements controller.IController {
                     //prints command
                     view.showStringEntry();
                     view.showString(option);
-
                     view.showString("Attempting to create a greyscale image with the " +
                             "red-component of the image with the given name, and refer to it " +
                             "henceforth in the program by the given destination name. ");
                     //accept string input for name (CHECK HERE)
-                    String originImage = in.next();
-                    String newIm = in.next();
+                    imageName = in.next();
+                    newImg = in.next();
                     view.showString(this.model.getPath());
-                    //give path to model
-                    Filter valueImg =
-                            new  FilterImage(galleryModel.images.get(originImage).getImage());
 
-                    valueImg.valueScale();
-                    galleryModel.images.put(newIm,
-                            new SingleImageModel(valueImg.getNewImage()));
+                    newModel =
+                            new  FilterImage(galleryModel.images.get(imageName).getImage());
+
+                    newModel.intensityScale();
+
+                    galleryModel.images.put(newImg, new SingleImageModel(newModel.getNewImage()));
                     view.showString("Image saved... ");
                     break;
-
                 case "value-component":
-                    //prints command
                     view.showStringEntry();
                     view.showString(option);
-
                     view.showString("Attempting to create a greyscale image with the " +
                             "red-component of the image with the given name, and refer to it " +
                             "henceforth in the program by the given destination name. ");
                     //accept string input for name (CHECK HERE)
-                     String originIm = in.next();
-                     String newI = in.next();
+                    imageName = in.next();
+                    newImg = in.next();
                     view.showString(this.model.getPath());
-                    //give path to model
-                    Filter intenseImg =
-                            new  FilterImage(galleryModel.images.get(originIm).getImage());
 
-                    intenseImg.intensityScale();
-                    galleryModel.images.put(newI,
-                            new SingleImageModel(intenseImg.getNewImage()));
+                    newModel =
+                            new  FilterImage(galleryModel.images.get(imageName).getImage());
+
+                    newModel.valueScale();
+
+                    galleryModel.images.put(newImg, new SingleImageModel(newModel.getNewImage()));
                     view.showString("Image saved... ");
                     break;
 
                 case "luma-component":
-                    //prints command
                     view.showStringEntry();
                     view.showString(option);
-
                     view.showString("Attempting to create a greyscale image with the " +
                             "red-component of the image with the given name, and refer to it " +
                             "henceforth in the program by the given destination name. ");
                     //accept string input for name (CHECK HERE)
-                    String originI = in.next();
-                    String img = in.next();
+                    imageName = in.next();
+                    newImg = in.next();
                     view.showString(this.model.getPath());
-                    //give path to model
-                    Filter lumaImg =
-                            new  FilterImage(galleryModel.images.get(originI).getImage());
 
-                    lumaImg.lumaScale();
-                    galleryModel.images.put(img,
-                            new SingleImageModel(lumaImg.getNewImage()));
+                    newModel =
+                            new  FilterImage(galleryModel.images.get(imageName).getImage());
+
+                    newModel.lumaScale();
+
+                    galleryModel.images.put(newImg, new SingleImageModel(newModel.getNewImage()));
                     view.showString("Image saved... ");
                     break;
 
