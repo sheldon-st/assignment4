@@ -248,7 +248,8 @@ public class IMETextController implements controller.IController {
 // comments for testing
 // load res/Koala.ppm k1
 // save res/Koala2.ppm k1
-// save res/blueK.ppm blueK
+// load res/venice.ppm k1
+// save res/veniceSave.ppm k1
 
 // red-component k1 redK
 // save res/redK.ppm redK
