@@ -17,18 +17,5 @@ public interface IModel {
    */
   int[][][] getImage();
 
-  /**
-   * Sets path to given string.
-   *
-   * @param i represents string of given path
-   */
-  void setPath(String i);
-
-  /**
-   * Gets path of Model
-   *
-   * @return String representing path of model.
-   */
-  String getPath();
 
 }

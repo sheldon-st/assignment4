@@ -48,14 +48,14 @@ public class IMETextController implements IController {
       String option = in.next();
       switch (option) {
         case "load":
-          IModel tempImage = new SingleImageModel();
+
           //prints command
           view.showString(option);
           view.showString("Attempting to load image from given path ... ");
           //accept string input for path (CHECK HERE)
           String input = in.next();
           //give path to model
-          tempImage.setPath(input);
+          IModel tempImage = new SingleImageModel(input);
           //adds to gallery
           //accept string input for name (CHECK HERE)
           input = in.next();

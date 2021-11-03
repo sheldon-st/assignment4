@@ -60,14 +60,4 @@ public class SingleImageModel implements IModel {
     return image.hashCode();
   }
 
-  @Override
-  public void setPath(String i) {
-    imagePath = i;
-  }
-
-  @Override
-  public String getPath() {
-    return "Image Path:" + imagePath;
-  }
-
 }
