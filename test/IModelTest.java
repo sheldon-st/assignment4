@@ -26,7 +26,6 @@ public class IModelTest {
   private final int koalaHeight = 768;
   private final int rbg = 3;
 
-
   @Test
   public void testConstructorIModel() {
     IModel empty = new SingleImageModel();
@@ -34,7 +33,6 @@ public class IModelTest {
     IModel koalaImage = new SingleImageModel(koala.getImage());
     IModel venice = new SingleImageModel(venPath);
   }
-
 
   /**
    * Tests the getImage method of the IMEModel class and the getImage method of the

@@ -226,4 +226,9 @@ public class IMETextController implements IController {
       }
     }
   }
+
+  @Override
+  public void setScanner(Scanner s) {
+
+  }
 }

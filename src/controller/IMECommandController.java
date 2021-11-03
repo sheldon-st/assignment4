@@ -154,5 +154,9 @@ public class IMECommandController implements IController {
       this.s = new Scanner(in);
     }
   }
+
+  public void setScanner(Scanner s){
+    this.s = s;
+  }
   }
 // load res/venice.ppm v1
