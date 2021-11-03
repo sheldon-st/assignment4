@@ -119,7 +119,7 @@ public class IMECommandController implements IController {
             case "run":
               String data = "";
               data = new String(Files.readAllBytes(Paths.get(line[1])));
-             // System.out.print(data);
+              // System.out.print(data);
               this.s = new Scanner(data);
               view.showString("Attempting to run script at " + line[1] + "...");
               break;
@@ -130,6 +130,7 @@ public class IMECommandController implements IController {
               break;
             case "q":
               quit = true;
+              view.showString("Quitting program... Thank You!");
               break;
             default:
               view.showString(String.format("Unknown command :%s", line[0]));
@@ -151,12 +152,11 @@ public class IMECommandController implements IController {
         }
         view.showString("********************************************************************************");
       }
-      this.s = new Scanner(in);
     }
   }
 
   public void setScanner(Scanner s){
     this.s = s;
   }
-  }
+}
 // load res/venice.ppm v1

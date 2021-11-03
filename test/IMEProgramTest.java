@@ -10,7 +10,4 @@ class IMEProgramTest {
 
 
   }
-
-
-
 }
