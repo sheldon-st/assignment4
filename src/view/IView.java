@@ -5,4 +5,6 @@ public interface IView {
     void showOptions();
     void showStringEntry();
     void showOptionError();
+
+
 }

@@ -27,6 +27,7 @@ public class ImageUtil {
     try {
       sc = new Scanner(new FileInputStream(filename));
     } catch (FileNotFoundException e) {
+      System.out.println("Failed to load.");
       System.out.println("File " + filename + " not found!");
       return null;
     }
@@ -51,8 +52,9 @@ public class ImageUtil {
     int width = sc.nextInt();
     int height = sc.nextInt();
     int maxValue = sc.nextInt();
-    System.out.println("Image Width: " + width + "Image Height: " + height +
-            "Maximum value of a color in this file (usually 255): " + maxValue);
+    System.out.println("Loading Image ...");
+    System.out.println("Image Size: " + width + " by " + height +
+            " px.");
 
     int[][][] imagePixels = new int[height][width][3];
 

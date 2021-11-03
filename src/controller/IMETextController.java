@@ -27,7 +27,7 @@ public class IMETextController implements IController {
    * @param in    the scanner to be used
    * @param view  the view to be used
    */
-  public IMETextController(IModel model, InputStream in, IView view) {
+  public IMETextController(IMEModel model, InputStream in, IView view) {
     this.view = view;
     this.in = new Scanner(in);
     this.galleryModel = new IMEModel();
@@ -226,4 +226,6 @@ public class IMETextController implements IController {
       }
     }
   }
+
+
 }

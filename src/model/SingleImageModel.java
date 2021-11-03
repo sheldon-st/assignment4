@@ -22,7 +22,7 @@ public class SingleImageModel implements IModel {
    */
   public SingleImageModel(String imagePath) {
     this.imagePath = imagePath;
-    image = ImageUtil.readPPM(this.imagePath);
+    this.setImage();
   }
 
   /**
