@@ -1,0 +1,3 @@
+load res/venice.ppm v1
+horizontal-flip v1 v2
+save res/veniceCopyTest.ppm v2

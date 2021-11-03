@@ -226,6 +226,4 @@ public class IMETextController implements IController {
       }
     }
   }
-
-
 }
