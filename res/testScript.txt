@@ -1,3 +1,10 @@
-load res/venice.ppm v1
-horizontal-flip v1 v2
-save res/veniceCopyTest.ppm v2
+load res/venice.ppm v
+load res/koala.ppm k
+horizontal-flip v v2
+vertical-flip k k2
+brighten 50 v2 v3
+red-component k k3
+save res/horizontalVenice.ppm v2
+save res/verticalKoala.ppm k2
+save res/brightHorizontalVenice.ppm v3
+save res/greyVerticalKoala.ppm k3
