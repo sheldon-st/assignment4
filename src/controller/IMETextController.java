@@ -67,7 +67,7 @@ public class IMETextController implements IController {
 
         case "save":
           //prints command
-          view.showStringEntry();
+           
           view.showString(option);
           view.showString("Attempting to save image to given path ... ");
           String path = in.next();
@@ -80,7 +80,7 @@ public class IMETextController implements IController {
 
         case "red-component":
           //prints command
-          view.showStringEntry();
+           
           view.showString(option);
           //accept string input for name (CHECK HERE)
           String imageName = in.next();
@@ -95,7 +95,7 @@ public class IMETextController implements IController {
 
         case "blue-component":
           //prints command
-          view.showStringEntry();
+           
           view.showString(option);
           //accept string input for name (CHECK HERE)
           imageName = in.next();
@@ -109,7 +109,7 @@ public class IMETextController implements IController {
 
         case "green-component":
           //prints command
-          view.showStringEntry();
+           
           view.showString(option);
           view.showString("Attempting to create a greyscale image with the " +
                   "red-component of the image with the given name, and refer to it " +
@@ -127,7 +127,7 @@ public class IMETextController implements IController {
 
         case "intensity-component":
           //prints command
-          view.showStringEntry();
+           
           view.showString(option);
           //accept string input for name (CHECK HERE)
           imageName = in.next();
@@ -140,7 +140,7 @@ public class IMETextController implements IController {
           break;
 
         case "value-component":
-          view.showStringEntry();
+           
           view.showString(option);
           //accept string input for name (CHECK HERE)
           imageName = in.next();
@@ -153,7 +153,7 @@ public class IMETextController implements IController {
           view.showString("Image saved... ");
           break;
         case "luma-component":
-          view.showStringEntry();
+           
           view.showString(option);
           view.showString("Attempting to create a greyscale image with the " +
                   "red-component of the image with the given name, and refer to it " +
@@ -170,7 +170,7 @@ public class IMETextController implements IController {
 
         case "horizontal-flip":
           //prints command
-          //view.showStringEntry();
+          // 
           view.showString(option);
           view.showString("Attempting to flip given image ... ");
           imageName = in.next();
@@ -183,7 +183,7 @@ public class IMETextController implements IController {
           break;
         case "vertical-flip":
           //prints command
-          //view.showStringEntry();
+          // 
           view.showString(option);
           view.showString("Attempting to flip given image ... ");
           imageName = in.next();

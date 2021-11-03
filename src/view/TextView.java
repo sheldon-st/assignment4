@@ -9,10 +9,16 @@ public class TextView implements view.IView {
     this.out = out;
   }
 
+  /**
+   * Prints the given string to the view.
+   */
   public void showString(String s) {
     out.println(s);
   }
 
+  /**
+   * Prints the menu to the view.
+   */
   public void showOptions() {
     //print the UI
     out.println("Menu: ");
@@ -46,10 +52,9 @@ public class TextView implements view.IView {
 
   }
 
-  public void showStringEntry() {
-    out.print("\nCommand: ");
-  }
-
+  /**
+   * Prints the error message to the view.
+   */
   public void showOptionError() {
     out.print("\nInvalid option. Please try again.");
   }
