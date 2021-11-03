@@ -43,7 +43,6 @@ public class SingleImageModel implements IModel {
 
   @Override
   public int[][][] getImage() {
-    System.out.println(this.image);
     return this.image;
   }
 

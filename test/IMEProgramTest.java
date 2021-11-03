@@ -8,8 +8,6 @@ class IMEProgramTest {
   public void testMain(){
     IMEProgramUI program = new IMEProgramUI();
 
-    program.main(new String[]{""});
-    program.main(new String[]{"load k1 "});
 
   }
 }
