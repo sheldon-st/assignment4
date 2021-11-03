@@ -6,6 +6,7 @@ This program is designed to represent an image processing environment capable of
 
 ### Scripts
 To run a script from a .txt file please create a new program and enter the command ‘run [file-path]’ relative to project root.
+Included at res/testScript.txt is a basic script that can be used to test a few functions program.
 
 ### Model
 * **[Class] IMEModel**
