@@ -119,6 +119,5 @@ public class IMECommandControllerTests {
     assertTrue(Files.exists(Paths.get("res/veniceCopy.ppm")));
     assertFalse(Files.exists(Paths.get("res/veniceCopy3.ppm")));
     assertFalse(Files.exists(Paths.get("res/veniceCopy3.ppm")));
-
   }
 }

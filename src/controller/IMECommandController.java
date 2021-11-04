@@ -26,20 +26,16 @@ import view.IView;
 public class IMECommandController implements IController {
   private IMEModel model;
   private IView view;
-  private InputStream in;
   private Scanner s;
 
   /**
    * Constructor for the IMECommandController.
    *
-   * @param model
-   * @param view
-   * @param in    input stream
+   * @param in input stream
    */
   public IMECommandController(IMEModel model, InputStream in, IView view) {
     this.model = new IMEModel();
     this.view = view;
-    this.in = in;
 
     this.s = new Scanner(in);
   }
@@ -67,7 +63,8 @@ public class IMECommandController implements IController {
           switch (line[0].toLowerCase()) {
             case "load":
               cmd = new Load(line[1], line[2]);
-              view.showString("Attempting to load image " + line[2] + " from " + line[1] + "...");
+              view.showString("Attempting to load image " + line[2] + " from " + line[1]
+                      + "...");
               break;
             case "save":
               cmd = new Save(line[1], line[2]);
@@ -75,19 +72,22 @@ public class IMECommandController implements IController {
               break;
             case "horizontal-flip":
               cmd = new HorizontalFlip(line[1], line[2]);
-              view.showString("Attempting to create a copy of " + line[1] + " flipped horizontally" +
+              view.showString("Attempting to create a copy of " + line[1] +
+                      " flipped horizontally" +
                       " referred to henceforth by " + line[2] + "...");
               break;
             case "vertical-flip":
               cmd = new VerticalFlip(line[1], line[2]);
-              view.showString("Attempting to create a copy of " + line[1] + " flipped vertically" +
+              view.showString("Attempting to create a copy of " + line[1] +
+                      " flipped vertically" +
                       " referred to henceforth by " + line[2] + "...");
               break;
             case "brighten":
               try {
                 int increment = Integer.parseInt(line[1]);
                 cmd = new Brighten(increment, line[2], line[3]);
-                view.showString("Attempting to create a copy of " + line[2] + " brightened by " +
+                view.showString("Attempting to create a copy of " + line[2] +
+                        " brightened by " +
                         line[1] + ", referred to henceforth by " + line[3] + "...");
                 break;
               } catch (NumberFormatException e) {
@@ -158,7 +158,8 @@ public class IMECommandController implements IController {
         } catch (IOException e) {
           e.printStackTrace();
         }
-        view.showString("********************************************************************************");
+        view.showString("***************" +
+                "*****************************************************************");
       }
     }
   }

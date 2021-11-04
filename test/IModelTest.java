@@ -69,6 +69,10 @@ public class IModelTest {
     assertEquals(rbg, galleryModel.images.get("k1").getImage()[0][0].length);
   }
 
+  /**
+   * Tests the getImage method of the IMEModel class and the getImage method of the ImageModel
+   * class.
+   */
   @Test
   public void saveImage() throws IOException {
     IModel venice = new SingleImageModel(venPath);
@@ -85,6 +89,10 @@ public class IModelTest {
             Paths.get("res/koala1.ppm")) == -1L);
   }
 
+  /**
+   * Tests the getImage method of the IMEModel class and the getImage method of the ImageModel
+   * class.
+   */
   @Test
   public void testEquals() {
     IModel venice = new SingleImageModel(venPath);

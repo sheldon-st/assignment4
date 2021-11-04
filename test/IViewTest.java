@@ -1,7 +1,9 @@
 import org.junit.Assert;
 import org.junit.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 import controller.IMECommandController;
 import model.IMEModel;
 import view.TextView;

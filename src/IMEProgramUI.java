@@ -4,7 +4,10 @@ import model.IMEModel;
 import view.IView;
 import view.TextView;
 
-
+/**
+ * This class is the main class of the program. It creates the view, model,
+ * and controller.
+ */
 public class IMEProgramUI {
   public static void main(String[] args) {
     IMEModel model = new IMEModel();
