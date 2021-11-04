@@ -28,7 +28,7 @@ public class VerticalFlip implements IMECommand {
    * Executes the command.
    */
   @Override
-  public void go(IMEModel m) {
+  public void startProgram(IMEModel m) {
     Filter tempImage =
             new FilterImage(m.images.get(source).getImage());
     tempImage.flipVertically();

@@ -29,7 +29,7 @@ public class Load implements IMECommand {
    * @param m The model to execute the command on.
    */
   @Override
-  public void go(IMEModel m) {
+  public void startProgram(IMEModel m) {
     IModel tempImage = new SingleImageModel(path);
     m.loadImage(name, tempImage);
   }

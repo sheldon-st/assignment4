@@ -33,7 +33,7 @@ public class Brighten implements IMECommand {
    * @param m the model
    */
   @Override
-  public void go(IMEModel m) {
+  public void startProgram(IMEModel m) {
     Filter tempImage =
             new FilterImage(m.images.get(source).getImage());
     tempImage.brighten(increment);

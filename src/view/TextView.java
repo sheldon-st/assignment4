@@ -2,6 +2,9 @@ package view;
 
 import java.io.PrintStream;
 
+/**
+ * This class represents a text view and implements the View interface.
+ */
 public class TextView implements view.IView {
   private PrintStream out;
 

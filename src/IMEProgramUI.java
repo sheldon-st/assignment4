@@ -9,10 +9,14 @@ import view.TextView;
  * and controller.
  */
 public class IMEProgramUI {
+  /**
+   * The main method.
+   * @param args The command line arguments.
+   */
   public static void main(String[] args) {
     IMEModel model = new IMEModel();
     IView view = new TextView(System.out);
     IController controller = new IMECommandController(model, System.in, view);
-    controller.go();
+    controller.startProgram();
   }
 }

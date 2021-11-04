@@ -44,7 +44,7 @@ public class IMECommandController implements IController {
    * This method is the main method of the controller.
    * It will take in a stream of commands and process it.
    */
-  public void go() {
+  public void startProgram() {
     boolean quit = false;
     String[] line = null;
     view.showOptions();
@@ -146,7 +146,7 @@ public class IMECommandController implements IController {
               break;
           }
           if (cmd != null) {
-            cmd.go(model);
+            cmd.startProgram(model);
             view.showString("Executed Command: " + Arrays.toString(line));
           }
         } catch (NullPointerException e) {

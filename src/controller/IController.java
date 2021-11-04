@@ -9,7 +9,7 @@ public interface IController {
   /**
    * Starts the program.
    */
-  void go();
+  void startProgram();
 
   public void setScanner(Scanner s);
 }

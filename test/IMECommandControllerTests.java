@@ -8,22 +8,20 @@ import java.util.Scanner;
 import controller.IController;
 import controller.IMECommandController;
 import model.IMEModel;
-import model.IModel;
-import model.SingleImageModel;
 import view.IView;
 import view.TextView;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Tests for IMECommandController class.
  */
 public class IMECommandControllerTests {
   IMEModel model = new IMEModel();
   IView view = new TextView(System.out);
-  IController controller = new IMECommandController(model,System.in,view);
-  String koalaPPMpath = "res/koala.ppm";
+  IController controller = new IMECommandController(model, System.in, view);
+  String koalaPPMpath = "res/koala1.ppm";
   String venicePPMPath = "res/veniceSave.ppm";
   String veniceRedPath = "res/veniceR.ppm";
   String veniceBluePath = "res/veniceB.ppm";
@@ -34,6 +32,7 @@ public class IMECommandControllerTests {
   String veniceHorizonPath = "res/veniceH.ppm";
   String veniceVertPath = "res/veniceVF.ppm";
   String veniceBrightPath = "res/veniceBr.ppm";
+
   /**
    * Tests for saving and loading a PPM file command.
    */
@@ -41,12 +40,12 @@ public class IMECommandControllerTests {
   public void testLoadSaveCommands() throws IOException {
     IMEModel model = new IMEModel();
     IView view = new TextView(System.out);
-    IController controller = new IMECommandController(model,System.in,view);
+    IController controller = new IMECommandController(model, System.in, view);
     String testLoadString = "load " + venicePPMPath + " v" +
             "\nsave res/veniceTEST.ppm v" + "\n" + "q";
     Scanner s = new Scanner(testLoadString);
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.exists(Paths.get("res/veniceTEST.ppm")));
     assertTrue(Files.mismatch(Paths.get(venicePPMPath),
             Paths.get("res/veniceTEST.ppm")) == -1L);
@@ -59,23 +58,21 @@ public class IMECommandControllerTests {
   public void testLoadSaveOverride() throws IOException {
     IMEModel model = new IMEModel();
     IView view = new TextView(System.out);
-    IController controller = new IMECommandController(model,System.in,view);
-    String testLoadString =  "load " + koalaPPMpath + " v" +
-             "\nload " + venicePPMPath + " v" + "\nsave res/veniceTEST.ppm v"
-             + "\n" + "q";
+    IController controller = new IMECommandController(model, System.in, view);
+    String testLoadString = "load " + koalaPPMpath + " v" +
+            "\nload " + venicePPMPath + " v" + "\nsave res/veniceTEST.ppm v"
+            + "\n" + "q";
     Scanner s = new Scanner(testLoadString);
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.exists(Paths.get("res/veniceTEST.ppm")));
-    assertTrue(Files.exists(Paths.get("res/koalaTEST.ppm")));
-    assertFalse(Files.mismatch(Paths.get("res/veniceTEST.ppm"),
-            Paths.get(koalaPPMpath)) == -1L);
     assertTrue(Files.mismatch(Paths.get("res/veniceTEST.ppm"),
             Paths.get(venicePPMPath)) == -1L);
   }
 
   /**
    * Tests for applying red-component filter command.
+   *
    * @throws IOException if File not found
    */
   @Test
@@ -86,7 +83,7 @@ public class IMECommandControllerTests {
     Scanner s = new Scanner(testLoadString + "\n" + testRedString2 + "\n" +
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.mismatch(Paths.get(veniceRedPath),
             Paths.get("res/veniceRed.ppm")) == -1L);
     assertFalse(Files.mismatch(Paths.get(venicePPMPath),
@@ -105,6 +102,7 @@ public class IMECommandControllerTests {
 
   /**
    * Tests for applying blue-component filter command.
+   *
    * @throws IOException if File not found
    */
   @Test
@@ -115,7 +113,7 @@ public class IMECommandControllerTests {
     Scanner s = new Scanner(testLoadString + "\n" + testRedString2 + "\n" +
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.mismatch(Paths.get(veniceBluePath),
             Paths.get("res/veniceBlue.ppm")) == -1L);
     assertFalse(Files.mismatch(Paths.get(venicePPMPath),
@@ -131,8 +129,10 @@ public class IMECommandControllerTests {
     assertFalse(Files.mismatch(Paths.get(veniceValuePath),
             Paths.get("res/veniceBlue.ppm")) == -1L);
   }
+
   /**
    * Tests for applying green-component filter command.
+   *
    * @throws IOException if File not found
    */
   @Test
@@ -143,7 +143,7 @@ public class IMECommandControllerTests {
     Scanner s = new Scanner(testLoadString + "\n" + testRedString2 + "\n" +
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.mismatch(Paths.get(veniceGreenPath),
             Paths.get("res/veniceGreen.ppm")) == -1L);
     assertFalse(Files.mismatch(Paths.get(venicePPMPath),
@@ -159,8 +159,10 @@ public class IMECommandControllerTests {
     assertFalse(Files.mismatch(Paths.get(veniceValuePath),
             Paths.get("res/veniceGreen.ppm")) == -1L);
   }
+
   /**
    * Tests for applying value-component filter command.
+   *
    * @throws IOException if File not found
    */
   @Test
@@ -171,7 +173,7 @@ public class IMECommandControllerTests {
     Scanner s = new Scanner(testLoadString + "\n" + testRedString2 + "\n" +
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.mismatch(Paths.get(veniceValuePath),
             Paths.get("res/veniceValue.ppm")) == -1L);
     assertFalse(Files.mismatch(Paths.get(venicePPMPath),
@@ -188,8 +190,10 @@ public class IMECommandControllerTests {
             Paths.get("res/veniceValue.ppm")) == -1L);
 
   }
+
   /**
    * Tests for applying intensity-component filter command.
+   *
    * @throws IOException if File not found
    */
   @Test
@@ -200,7 +204,7 @@ public class IMECommandControllerTests {
     Scanner s = new Scanner(testLoadString + "\n" + testRedString2 + "\n" +
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.mismatch(Paths.get(veniceIntensePath),
             Paths.get("res/veniceIntensity.ppm")) == -1L);
     assertFalse(Files.mismatch(Paths.get(venicePPMPath),
@@ -219,6 +223,7 @@ public class IMECommandControllerTests {
 
   /**
    * Tests for applying luma-component filter command.
+   *
    * @throws IOException if File not found
    */
   @Test
@@ -229,7 +234,7 @@ public class IMECommandControllerTests {
     Scanner s = new Scanner(testLoadString + "\n" + testRedString2 + "\n" +
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.mismatch(Paths.get(veniceLumaPath),
             Paths.get("res/veniceLuma.ppm")) == -1L);
     assertFalse(Files.mismatch(Paths.get(venicePPMPath),
@@ -248,6 +253,7 @@ public class IMECommandControllerTests {
 
   /**
    * Tests for flipping image vertically command.
+   *
    * @throws IOException if File not found
    */
   @Test
@@ -258,7 +264,7 @@ public class IMECommandControllerTests {
     Scanner s = new Scanner(testLoadString + "\n" + testRedString2 + "\n" +
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.mismatch(Paths.get(veniceVertPath),
             Paths.get("res/veniceVert.ppm")) == -1L);
     assertFalse(Files.mismatch(Paths.get(venicePPMPath),
@@ -269,6 +275,7 @@ public class IMECommandControllerTests {
 
   /**
    * Tests for flipping image horizontally command.
+   *
    * @throws IOException if File not found
    */
   @Test
@@ -279,7 +286,7 @@ public class IMECommandControllerTests {
     Scanner s = new Scanner(testLoadString + "\n" + testRedString2 + "\n" +
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.mismatch(Paths.get(veniceHorizonPath),
             Paths.get("res/veniceHoriz.ppm")) == -1L);
     assertFalse(Files.mismatch(Paths.get(venicePPMPath),
@@ -290,6 +297,7 @@ public class IMECommandControllerTests {
 
   /**
    * Tests for brightening image by 10 command.
+   *
    * @throws IOException if File not found
    */
   @Test
@@ -300,7 +308,7 @@ public class IMECommandControllerTests {
     Scanner s = new Scanner(testLoadString + "\n" + testRedString2 + "\n" +
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.mismatch(Paths.get(veniceBrightPath),
             Paths.get("res/veniceBright.ppm")) == -1L);
     assertFalse(Files.mismatch(Paths.get(venicePPMPath),
@@ -327,12 +335,13 @@ public class IMECommandControllerTests {
     String testLoadString = "load res/venice.ppm venice \nload res/paris.ppm paris " +
             "\nsave res/veniceCopy.ppm venice \nsave res/parisCopy.ppm paris \nq";
     Scanner s = new Scanner(testLoadString);
-    IController controller = new IMECommandController(model,System.in,view);
+    IController controller = new IMECommandController(model, System.in, view);
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.exists(Paths.get("res/veniceCopy.ppm")));
     assertFalse(Files.exists(Paths.get("res/parisCopy.ppm")));
   }
+
   /**
    * Tests for IMECommandController class for case that brighten input string is not an integer.
    */
@@ -343,12 +352,13 @@ public class IMECommandControllerTests {
     String testLoadString = "load res/venice.ppm v1 \nload res/venice.ppm v2" +
             "\nload res/venice.ppm vOriginal" +
             "\nbrighten 10 v1 v1brighter \nbrighten ten v2 v2brighter" +
-            "\nsave res/vOriginal.ppm vOriginal \nsave res/vBrighter.ppm v1brighter \nsave res/vBrighterFailed.ppm v2brighter " +
+            "\nsave res/vOriginal.ppm vOriginal \nsave res/vBrighter.ppm v1brighter \nsave " +
+            "res/vBrighterFailed.ppm v2brighter " +
             "\nq";
     Scanner s = new Scanner(testLoadString);
-    IController controller = new IMECommandController(model,System.in,view);
+    IController controller = new IMECommandController(model, System.in, view);
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertFalse(Files.exists(Paths.get("res/vBrighterFailed.ppm")));
     assertFalse(Files.mismatch(Paths.get("res/vOriginal.ppm"),
             Paths.get("res/vbrighter.ppm")) == -1L);
@@ -364,17 +374,16 @@ public class IMECommandControllerTests {
     String testLoadString = "load res/venice.ppm v1 \nload res/venice.ppm v2" +
             "\nload res/venice.ppm v3" +
             "\nbrighten 10 v1 v1brighter \nbrighten 10 v4 v2brighter" +
-            "\nsave res/vOriginal.ppm v3 \nsave res/v1.ppm v1brighter \nsave res/vBrighterFailed.ppm v2brighter " +
+            "\nsave res/vOriginal.ppm v3 \nsave res/v1.ppm v1brighter \nsave " +
+            "res/vBrighterFailed.ppm v2brighter " +
             "\nsave res/randomPhoto.ppm randomSource " +
             "\nq";
     Scanner s = new Scanner(testLoadString);
-    IController controller = new IMECommandController(model,System.in,view);
+    IController controller = new IMECommandController(model, System.in, view);
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertFalse(Files.exists(Paths.get("res/vBrighterFailed.ppm")));
     assertFalse(Files.exists(Paths.get("res/randomPhoto.ppm")));
-    assertFalse(Files.mismatch(Paths.get("res/vOriginal.ppm"),
-            Paths.get("res/vbrighter.ppm")) == -1L);
   }
 
   /**
@@ -390,9 +399,9 @@ public class IMECommandControllerTests {
             "\nsave res/veniceCopy.ppm venice \nsave res/veniceCopy3.ppm venice2 " +
             "\nsave res/veniceCopy3.ppm venice3 \nq";
     Scanner s = new Scanner(testLoadString);
-    IController controller = new IMECommandController(model,System.in,view);
+    IController controller = new IMECommandController(model, System.in, view);
     controller.setScanner(s);
-    controller.go();
+    controller.startProgram();
     assertTrue(Files.exists(Paths.get("res/veniceCopy.ppm")));
     assertFalse(Files.exists(Paths.get("res/veniceCopy3.ppm")));
     assertFalse(Files.exists(Paths.get("res/veniceCopy3.ppm")));

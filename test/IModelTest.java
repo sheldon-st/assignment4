@@ -14,27 +14,32 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Tests for the model.
+ * Tests for the model image.
  */
 public class IModelTest {
 
   private final String venPath = "res/venice.ppm";
-  private final String koPath = "res/Koala.ppm";
+  private final String koPath = "res/koala.ppm";
   private final int veniceWidth = 615;
   private final int veniceHeight = 410;
-  private final int KoalaWidth = 1024;
-  private final int koalaHeight = 768;
+  private final int koalaWidth = 260;
+  private final int koalaHeight = 280;
   private final int rbg = 3;
   private IMEModel galleryModel = new IMEModel();
   private int[][][] koalaImage;
   private int[][][] veniceImage;
 
+
   @Test
   public void testConstructorIModel() {
     IModel empty = new SingleImageModel();
+    assertEquals(null, empty.getImage());
     IModel koala = new SingleImageModel(koPath);
+    assertEquals(koalaHeight, koala.getImage().length);
     IModel koalaImage = new SingleImageModel(koala.getImage());
+    assertEquals(koalaHeight, koalaImage.getImage().length);
     IModel venice = new SingleImageModel(venPath);
+    assertEquals(veniceHeight, venice.getImage().length);
   }
 
   /**
@@ -49,7 +54,7 @@ public class IModelTest {
     assertEquals(galleryModel.images.get("k1").getImage(),
             galleryModel.images.get("k2").getImage());
     assertEquals(koalaHeight, galleryModel.images.get("k1").getImage().length);
-    assertEquals(KoalaWidth, galleryModel.images.get("k1").getImage()[0].length);
+    assertEquals(koalaWidth, galleryModel.images.get("k1").getImage()[0].length);
     assertEquals(rbg, galleryModel.images.get("k1").getImage()[0][0].length);
   }
 

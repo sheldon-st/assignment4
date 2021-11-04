@@ -35,7 +35,7 @@ public class Components {
      * @param m The model of the program.
      */
     @Override
-    public void go(IMEModel m) {
+    public void startProgram(IMEModel m) {
       Filter tempImage =
               new FilterImage(m.images.get(source).getImage());
       tempImage.redScale();
@@ -67,7 +67,7 @@ public class Components {
      * @param m The model of the program.
      */
     @Override
-    public void go(IMEModel m) {
+    public void startProgram(IMEModel m) {
       Filter tempImage =
               new FilterImage(m.images.get(source).getImage());
       tempImage.blueScale();
@@ -99,7 +99,7 @@ public class Components {
      * @param m The model of the program.
      */
     @Override
-    public void go(IMEModel m) {
+    public void startProgram(IMEModel m) {
       Filter tempImage =
               new FilterImage(m.images.get(source).getImage());
       tempImage.greenScale();
@@ -131,7 +131,7 @@ public class Components {
      * @param m The model of the program.
      */
     @Override
-    public void go(IMEModel m) {
+    public void startProgram(IMEModel m) {
       Filter tempImage =
               new FilterImage(m.images.get(source).getImage());
       tempImage.intensityScale();
@@ -163,7 +163,7 @@ public class Components {
      * @param m The model of the program.
      */
     @Override
-    public void go(IMEModel m) {
+    public void startProgram(IMEModel m) {
       Filter tempImage =
               new FilterImage(m.images.get(source).getImage());
       tempImage.valueScale();
@@ -195,7 +195,7 @@ public class Components {
      * @param m The model of the program.
      */
     @Override
-    public void go(IMEModel m) {
+    public void startProgram(IMEModel m) {
       Filter tempImage =
               new FilterImage(m.images.get(source).getImage());
       tempImage.lumaScale();

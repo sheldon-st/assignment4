@@ -27,7 +27,7 @@ public class Save implements IMECommand {
    * @param m the model
    */
   @Override
-  public void go(IMEModel m) {
+  public void startProgram(IMEModel m) {
     m.saveImage(path, name);
   }
 }

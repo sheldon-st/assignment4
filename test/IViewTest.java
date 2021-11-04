@@ -43,22 +43,35 @@ public class IViewTest {
     IMECommandController controller = new IMECommandController(model, System.in, view);
     view.showOptions();
     Assert.assertEquals("Menu: \n" +
-            " load [image-path] [image-name]: loads an image from [image-path] to be referred to as [image-name]\n" +
-            " save [image-path] [image-name]: saves image [image-name] to path [image-path]\n" +
-            " Image Visualization: creates a new image of specified component from [image-name] to be referred to as [dest-image-name]\n" +
-            "  red-component [image-name] [dest-image-name]\n" +
-            "  green-component [image-name] [dest-image-name]\n" +
-            "  blue-component [image-name] [dest-image-name]\n" +
-            "  value-component [image-name] [dest-image-name]\n" +
-            "  luma-component [image-name] [dest-image-name]\n" +
-            "  intensity-component [image-name] [dest-image-name]\n" +
-            " horizontal-flip [image-name] [dest-image-name]: flip an image horizontally to create a new image referred to as [image-name]\n" +
-            " vertical-flip [image-name] [dest-image-name]: flip an image vertically to create a new image referred to as [image-name]\n" +
-            " brighten [increment] [image-name] [dest-image-name]brighten the image by the given increment (+/-) to create a new image referred toas [dest-image-name]\n" +
-            " run [script-path]: runs the given text file as a list of commands\n" +
-            " M: See the full menu again\n" +
-            " Q: Quit the program\n" +
-            "********************************************************************************", outputStreamCaptor.toString().trim());
+                    " load [image-path] [image-name]: loads an image from [image-path] to " +
+                    "be referred to " +
+                    "as [image-name]\n" +
+                    " save [image-path] [image-name]: saves image [image-name] to path " +
+                    "[image-path]\n" +
+                    " Image Visualization: creates a new image of specified component " +
+                    "from [image-name] " +
+                    "to be referred to as [dest-image-name]\n" +
+                    "  red-component [image-name] [dest-image-name]\n" +
+                    "  green-component [image-name] [dest-image-name]\n" +
+                    "  blue-component [image-name] [dest-image-name]\n" +
+                    "  value-component [image-name] [dest-image-name]\n" +
+                    "  luma-component [image-name] [dest-image-name]\n" +
+                    "  intensity-component [image-name] [dest-image-name]\n" +
+                    " horizontal-flip [image-name] [dest-image-name]: flip an image " +
+                    "horizontally to " +
+                    "create a new image referred to as [image-name]\n" +
+                    " vertical-flip [image-name] [dest-image-name]: flip an image " +
+                    "vertically to create " +
+                    "a new image referred to as [image-name]\n" +
+                    " brighten [increment] [image-name] [dest-image-name]brighten the image " +
+                    "by the given " +
+                    "increment (+/-) to create a new image referred toas [dest-image-name]\n" +
+                    " run [script-path]: runs the given text file as a list of commands\n" +
+                    " M: See the full menu again\n" +
+                    " Q: Quit the program\n" +
+                    "********************************************************************" +
+                    "************",
+            outputStreamCaptor.toString().trim());
 
   }
 }

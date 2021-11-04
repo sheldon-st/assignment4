@@ -12,5 +12,5 @@ public interface IMECommand {
    *
    * @param m The model to use.
    */
-  void go(IMEModel m);
+  void startProgram(IMEModel m);
 }

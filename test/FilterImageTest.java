@@ -1,53 +1,46 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import model.Filter;
 import model.FilterImage;
 import model.IMEModel;
 import model.IModel;
 import model.SingleImageModel;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests for the Filtering Images such as by red, green, blue grayscale etc.
+ */
 public class FilterImageTest {
-  private IMEModel galleryModel = new IMEModel();
   private final String venPath = "res/venice.ppm";
-  private final String redVen = "res/redVen.ppm";
-  private final String blueVen = "res/blueVen.ppm";
-  private final String greenVen = "res/greenVen.ppm";
-  private final String valueVen = "res/valueVen.ppm";
-  private final String intensityVen = "res/intensityVen.ppm";
-  private final String LumaVen = "res/LumaVen.ppm";
-  private final String vertVen = "res/vertVen.ppm";
-  private final String horizonVen = "res/horizonVen.ppm";
-  private final String brightVen = "res/brightVen.ppm";
-
-  private final String koPath = "res/Koala.ppm";
+  private final String koPath = "res/koala.ppm";
+  private IMEModel galleryModel = new IMEModel();
   private IModel empty;
-  private IModel  koala;
+  private IModel koala;
   private IModel venice;
   private IModel koalaImage;
   private Filter filter;
 
   @Before
   public void setUp() throws Exception {
-     empty = new SingleImageModel();
-     koala = new SingleImageModel(koPath);
-     koalaImage = new SingleImageModel(koala.getImage());
-     venice = new SingleImageModel(venPath);
-     galleryModel.loadImage("Venice", venice);
-     galleryModel.loadImage("Koala", koala);
-     filter = new FilterImage(venice.getImage());
+    empty = new SingleImageModel();
+    koala = new SingleImageModel(koPath);
+    koalaImage = new SingleImageModel(koala.getImage());
+    venice = new SingleImageModel(venPath);
+    galleryModel.loadImage("Venice", venice);
+    galleryModel.loadImage("koala", koala);
+    filter = new FilterImage(venice.getImage());
 
   }
 
   @Test
   public void testConstructorIModel() {
-    assertEquals(filter.getNewImage(),(venice.getImage()));
+    assertEquals(filter.getNewImage(), (venice.getImage()));
   }
+
   @Test
   public void getNewImage() {
     assertEquals(venice.getImage(), filter.getNewImage());
@@ -58,8 +51,8 @@ public class FilterImageTest {
   public void redScale() {
     filter.redScale();
     assertTrue(filter.getNewImage()[0][0][0] == venice.getImage()[0][0][0] &&
-                    filter.getNewImage()[0][0][1] == venice.getImage()[0][0][0] &&
-                    filter.getNewImage()[0][0][2] == venice.getImage()[0][0][0]);
+            filter.getNewImage()[0][0][1] == venice.getImage()[0][0][0] &&
+            filter.getNewImage()[0][0][2] == venice.getImage()[0][0][0]);
 
     assertTrue(filter.getNewImage()[5][6][0] == venice.getImage()[5][6][0] &&
             filter.getNewImage()[5][6][1] == venice.getImage()[5][6][0] &&
@@ -92,10 +85,10 @@ public class FilterImageTest {
 
   @Test
   public void valueScale() {
-   int  maxValAtZero = Math.max(Math.max(venice.getImage()[0][0][0],
-           venice.getImage()[0][0][1]), venice.getImage()[0][0][2]);
+    int maxValAtZero = Math.max(Math.max(venice.getImage()[0][0][0],
+            venice.getImage()[0][0][1]), venice.getImage()[0][0][2]);
 
-    int  maxValAtFiveSix = Math.max(Math.max(venice.getImage()[5][6][0],
+    int maxValAtFiveSix = Math.max(Math.max(venice.getImage()[5][6][0],
             venice.getImage()[5][6][1]), venice.getImage()[5][6][2]);
 
     filter.valueScale();
@@ -109,7 +102,7 @@ public class FilterImageTest {
 
   @Test
   public void intensityScale() {
-    int   avgValAtZero = (venice.getImage()[0][0][0] + venice.getImage()[0][0][1] +
+    int avgValAtZero = (venice.getImage()[0][0][0] + venice.getImage()[0][0][1] +
             venice.getImage()[0][0][2]) / 3;
 
     int avgValAtFiveSix = (venice.getImage()[5][6][0] + venice.getImage()[5][6][1]
@@ -158,7 +151,7 @@ public class FilterImageTest {
   @Test
   public void flipHorizontally() {
     filter.flipHorizontally();
-    assertEquals(filter.getNewImage()[0][614][0] ,venice.getImage()[0][0][0]);
+    assertEquals(filter.getNewImage()[0][614][0], venice.getImage()[0][0][0]);
     assertEquals(filter.getNewImage()[0][614][1], venice.getImage()[0][0][1]);
     assertEquals(filter.getNewImage()[0][614][2], venice.getImage()[0][0][2]);
 

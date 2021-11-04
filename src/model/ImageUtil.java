@@ -91,12 +91,14 @@ public class ImageUtil {
       }
 
 
-      BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename)));
+      BufferedWriter writer = new BufferedWriter(new OutputStreamWriter
+              (new FileOutputStream(filename)));
       writer.write(("P3\n" + width + " " + height + "\n255\n"));
 
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-          writer.write(imagePixels[i][j][0] + "\n" + imagePixels[i][j][1] + "\n" + imagePixels[i][j][2] + "\n");
+          writer.write(imagePixels[i][j][0] + "\n" + imagePixels[i][j][1] + "\n"
+                  + imagePixels[i][j][2] + "\n");
 
         }
       }
