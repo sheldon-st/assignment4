@@ -1,5 +1,4 @@
 package controller.commands;
-
 import controller.IMECommand;
 import model.Filter;
 import model.FilterImage;

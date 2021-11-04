@@ -13,6 +13,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests for the model.
+ */
 public class IModelTest {
 
   private final String venPath = "res/venice.ppm";

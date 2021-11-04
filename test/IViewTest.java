@@ -1,13 +1,14 @@
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
 import controller.IMECommandController;
 import model.IMEModel;
 import view.TextView;
 
+/**
+ * This class tests the TextView class.
+ */
 public class IViewTest {
   /**
    * Tests if a string is printed to the console.
