@@ -21,12 +21,19 @@ public class FilterImage implements Filter {
     this.width = image[0].length;
   }
 
+  /**
+   * Returns the image array.
+   *
+   * @return
+   */
   @Override
   public int[][][] getNewImage() {
     return this.image;
-
   }
 
+  /**
+   * Greyscale from red component.
+   */
   @Override
   public void redScale() {
     for (int i = 0; i < image.length; i++) {
@@ -37,6 +44,9 @@ public class FilterImage implements Filter {
     }
   }
 
+  /**
+   * Greyscale from blue component.
+   */
   @Override
   public void blueScale() {
     for (int i = 0; i < image.length; i++) {
@@ -48,6 +58,9 @@ public class FilterImage implements Filter {
 
   }
 
+  /**
+   * Greyscale from green component.
+   */
   @Override
   public void greenScale() {
     for (int i = 0; i < image.length; i++) {
@@ -58,6 +71,9 @@ public class FilterImage implements Filter {
     }
   }
 
+  /**
+   * Greyscale from value component.
+   */
   @Override
   public void valueScale() {
     int maxVal = 0;
@@ -71,6 +87,9 @@ public class FilterImage implements Filter {
     }
   }
 
+  /**
+   * Greyscale from intensity component.
+   */
   @Override
   public void intensityScale() {
     int avgVal = 0;
@@ -84,6 +103,9 @@ public class FilterImage implements Filter {
     }
   }
 
+  /**
+   * Greyscale from luma component.
+   */
   @Override
   public void lumaScale() {
     int luma = 0;
@@ -98,6 +120,12 @@ public class FilterImage implements Filter {
     }
   }
 
+  /**
+   * Copies the given image.
+   *
+   * @param imgToCopy given image to make a copy of
+   * @return new image array
+   */
   @Override
   public int[][][] copyImage(int[][][] imgToCopy) {
     int[][][] newImage = new int[imgToCopy.length][imgToCopy[0].length][3];
@@ -111,35 +139,46 @@ public class FilterImage implements Filter {
     return newImage;
   }
 
+  /**
+   * Flips the image horizontally.
+   */
   @Override
   public void flipHorizontally() {
     System.out.println("flipping image: ");
     for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width/2; j++) {
-        int[] tmp = image[i][width-j-1].clone();
-        image[i][width-j-1] = image[i][j].clone();
+      for (int j = 0; j < width / 2; j++) {
+        int[] tmp = image[i][width - j - 1].clone();
+        image[i][width - j - 1] = image[i][j].clone();
         image[i][j] = tmp;
       }
     }
   }
 
-@Override
+  /**
+   * Flips the image vertically.
+   */
+  @Override
   public void flipVertically() {
     System.out.println("flipping image: ");
-    System.out.println(this.image.length );
+    System.out.println(this.image.length);
     System.out.println(this.width);
     System.out.println(this.height);
 
-    for (int i = 0; i < height/2; i++) {
+    for (int i = 0; i < height / 2; i++) {
       for (int j = 0; j < width; j++) {
-        int[] tmp = image[height-i-1][j].clone();
-        image[height-i-1][j] = image[i][j].clone();
+        int[] tmp = image[height - i - 1][j].clone();
+        image[height - i - 1][j] = image[i][j].clone();
         image[i][j] = tmp;
       }
     }
   }
 
- @Override
+  /**
+   * Brightens the image by the given increment.
+   *
+   * @param increment the amount to brighten the image by
+   */
+  @Override
   public void brighten(int increment) {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -149,5 +188,4 @@ public class FilterImage implements Filter {
       }
     }
   }
-
 }

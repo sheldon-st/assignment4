@@ -1,8 +1,6 @@
 package controller;
 
-import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -31,7 +29,13 @@ public class IMECommandController implements IController {
   private InputStream in;
   private Scanner s;
 
-
+  /**
+   * Constructor for the IMECommandController.
+   *
+   * @param model
+   * @param view
+   * @param in    input stream
+   */
   public IMECommandController(IMEModel model, InputStream in, IView view) {
     this.model = new IMEModel();
     this.view = view;
@@ -40,6 +44,10 @@ public class IMECommandController implements IController {
     this.s = new Scanner(in);
   }
 
+  /**
+   * This method is the main method of the controller.
+   * It will take in a stream of commands and process it.
+   */
   public void go() {
     boolean quit = false;
     String[] line = null;
@@ -155,8 +163,7 @@ public class IMECommandController implements IController {
     }
   }
 
-  public void setScanner(Scanner s){
+  public void setScanner(Scanner s) {
     this.s = s;
   }
 }
-// load res/venice.ppm v1

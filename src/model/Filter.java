@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * This interface represents a filter effect for an image.
+ */
 public interface Filter {
   /**
    * Method to apply red-component filter on image. This means that the red-component value is
@@ -55,19 +58,19 @@ public interface Filter {
   /**
    * Flips the image array horizontally.
    */
-   void flipHorizontally();
+  void flipHorizontally();
 
   /**
    * Flips the image array vertically.
    */
-   void flipVertically();
+  void flipVertically();
 
   /**
    * This method brightens the image array by the given increment.
    *
    * @param increment the increment to brighten the image by.
    */
-   void brighten(int increment);
+  void brighten(int increment);
 }
 
 

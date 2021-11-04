@@ -35,17 +35,25 @@ public class SingleImageModel implements IModel {
     this.image = image;
   }
 
+  /**
+   * Sets the image from the given image path.
+   */
   @Override
   public void setImage() {
     this.image = ImageUtil.readPPM(this.imagePath);
   }
 
-
+  /**
+   * Gets the image array.
+   */
   @Override
   public int[][][] getImage() {
     return this.image;
   }
 
+  /**
+   * Overrides the equals method.
+   */
   @Override
   public boolean equals(Object o) {
     if (o instanceof SingleImageModel) {
@@ -55,9 +63,11 @@ public class SingleImageModel implements IModel {
     return false;
   }
 
+  /**
+   * Overrides the hashCode method.
+   */
   @Override
   public int hashCode() {
     return image.hashCode();
   }
-
 }
