@@ -1,4 +1,5 @@
 package controller;
+
 import org.junit.Test;
 
 import java.io.IOException;
@@ -7,14 +8,11 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 import model.IMEModel;
-import model.IModel;
-import model.SingleImageModel;
 import view.IView;
 import view.TextView;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for IMECommandController class.
@@ -23,14 +21,15 @@ public class IMECommandControllerTests {
 
   /**
    * Tests load and save operations for command IMECommandController.
+   *
    * @throws IOException
    */
   @Test
   public void testLoadSaveCommands() throws IOException {
     IMEModel model = new IMEModel();
     IView view = new TextView(System.out);
-    IController controller = new IMECommandController(model,System.in,view);
-    String testLoadString = "load res/venice.ppm v" + "\nload res/venice.ppm v1"+
+    IController controller = new IMECommandController(model, System.in, view);
+    String testLoadString = "load res/venice.ppm v" + "\nload res/venice.ppm v1" +
             "\nsave res/veniceTEST.ppm v" + "\nsave res/veniceTEST2.ppm v1" + "\n" + "q";
     Scanner s = new Scanner(testLoadString);
     controller.setScanner(s);
@@ -49,7 +48,7 @@ public class IMECommandControllerTests {
     String testLoadString = "load res/venice.ppm venice \nload res/paris.ppm paris " +
             "\nsave res/veniceCopy.ppm venice \nsave res/parisCopy.ppm paris \nq";
     Scanner s = new Scanner(testLoadString);
-    IController controller = new IMECommandController(model,System.in,view);
+    IController controller = new IMECommandController(model, System.in, view);
     controller.setScanner(s);
     controller.go();
     assertTrue(Files.exists(Paths.get("res/veniceCopy.ppm")));
@@ -69,7 +68,7 @@ public class IMECommandControllerTests {
             "\nsave res/vOriginal.ppm vOriginal \nsave res/vBrighter.ppm v1brighter \nsave res/vBrighterFailed.ppm v2brighter " +
             "\nq";
     Scanner s = new Scanner(testLoadString);
-    IController controller = new IMECommandController(model,System.in,view);
+    IController controller = new IMECommandController(model, System.in, view);
     controller.setScanner(s);
     controller.go();
     assertFalse(Files.exists(Paths.get("res/vBrighterFailed.ppm")));
@@ -92,7 +91,7 @@ public class IMECommandControllerTests {
             "\nsave res/randomPhoto.ppm randomSource " +
             "\nq";
     Scanner s = new Scanner(testLoadString);
-    IController controller = new IMECommandController(model,System.in,view);
+    IController controller = new IMECommandController(model, System.in, view);
     controller.setScanner(s);
     controller.go();
     assertFalse(Files.exists(Paths.get("res/vBrighterFailed.ppm")));
@@ -114,7 +113,7 @@ public class IMECommandControllerTests {
             "\nsave res/veniceCopy.ppm venice \nsave res/veniceCopy3.ppm venice2 " +
             "\nsave res/veniceCopy3.ppm venice3 \nq";
     Scanner s = new Scanner(testLoadString);
-    IController controller = new IMECommandController(model,System.in,view);
+    IController controller = new IMECommandController(model, System.in, view);
     controller.setScanner(s);
     controller.go();
     assertTrue(Files.exists(Paths.get("res/veniceCopy.ppm")));

@@ -15,9 +15,6 @@ import static org.junit.Assert.assertTrue;
 
 public class IModelTest {
 
-  private IMEModel galleryModel = new IMEModel();
-  private int[][][] koalaImage;
-  private int[][][] veniceImage;
   private final String venPath = "res/venice.ppm";
   private final String koPath = "res/Koala.ppm";
   private final int veniceWidth = 615;
@@ -25,6 +22,9 @@ public class IModelTest {
   private final int KoalaWidth = 1024;
   private final int koalaHeight = 768;
   private final int rbg = 3;
+  private IMEModel galleryModel = new IMEModel();
+  private int[][][] koalaImage;
+  private int[][][] veniceImage;
 
   @Test
   public void testConstructorIModel() {

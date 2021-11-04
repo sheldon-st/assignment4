@@ -6,11 +6,7 @@ import java.io.PrintStream;
 
 import controller.IMECommandController;
 import model.IMEModel;
-import model.IModel;
-import view.IView;
 import view.TextView;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class IViewTest {
   /**
