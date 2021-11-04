@@ -51,7 +51,7 @@ a few functions program.
 
 Images used for testing:
 [Venice](www.google.com)
-[Koala](inserts url here)
+[Koala](https://picryl.com/media/koala-3f3389)
 These files are licensed under
 the  [Creative Commons](https://en.wikipedia.org/wiki/en:Creative_Commons)   [Attribution-Share Alike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
 license.
