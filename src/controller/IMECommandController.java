@@ -11,6 +11,7 @@ import java.util.Scanner;
 import controller.commands.Brighten;
 import controller.commands.Components;
 import controller.commands.HorizontalFlip;
+import controller.commands.KernalFilter;
 import controller.commands.Load;
 import controller.commands.Save;
 import controller.commands.VerticalFlip;
@@ -98,6 +99,17 @@ public class IMECommandController implements IController {
               cmd = new Components.RedComponent(line[1], line[2]);
               view.showString("Attempting to create a greyscale copy of " + line[1] +
                       "'s red component, referred to henceforth by " + line[2] + "...");
+              break;
+            case "blur":
+              cmd = new KernalFilter.BlurFilter(line[1], line[2]);
+              view.showString("Attempting to create a blur copy of " + line[1] +
+                      "'s image, referred to henceforth by " + line[2] + "...");
+              break;
+
+            case "sharpen":
+              cmd = new KernalFilter.SharpenImage(line[1], line[2]);
+              view.showString("Attempting to create a blur copy of " + line[1] +
+                      "'s image, referred to henceforth by " + line[2] + "...");
               break;
             case "blue-component":
               cmd = new Components.BlueComponent(line[1], line[2]);

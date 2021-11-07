@@ -91,8 +91,8 @@ public class ImageUtil {
       }
 
 
-      BufferedWriter writer = new BufferedWriter(new OutputStreamWriter
-              (new FileOutputStream(filename)));
+      BufferedWriter writer =
+              new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename)));
       writer.write(("P3\n" + width + " " + height + "\n255\n"));
 
       for (int i = 0; i < height; i++) {

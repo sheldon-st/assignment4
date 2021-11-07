@@ -9,6 +9,21 @@ public class FilterImage implements Filter {
   private int width;
   private int height;
 
+  static final double[][] blurImageKernal = new double[][]{
+          {1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0},
+          {1.0 / 8.0, 1.0 / 4.0, 1.0 / 8.0},
+          {1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0}
+  };
+
+  static final double[][] sharpenImageKernal = new double[][]{
+          {-1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0},
+          {-1.0 / 8.0, 1.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0, -1.0 / 8.0},
+          {-1.0 / 8.0, 1.0 / 4.0, 1.0, 1.0 / 4.0, -1.0 / 8.0},
+          {-1.0 / 8.0, 1.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0, -1.0 / 8.0},
+          {-1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0},
+  };
+
+
   /**
    * Constructor for FilterImage takes in image to apply the filter on and copies into a new blank
    * image and applies the filter.
@@ -20,6 +35,54 @@ public class FilterImage implements Filter {
     this.height = image.length;
     this.width = image[0].length;
   }
+
+  /**
+   * Blur Image uses the blurImageKernal to blur the image.
+   */
+  @Override
+  public void blurImage() {
+    processImageWithKernal(blurImageKernal);
+  }
+
+  /**
+   * Sharpen Image uses the sharpenImageKernal to sharpen the image.
+   */
+  @Override
+  public void sharpenImage() {
+    processImageWithKernal(sharpenImageKernal);
+  }
+
+  /**
+   * Processes the image with a kernal.
+   */
+  private void processImageWithKernal(double[][] kernal) {
+    for (int i = 0; i < image.length; i++) {
+      for (int j = 0; j < image[0].length; j++) {
+        for (int k = 0; k < image[0][0].length; k++) {
+          image[i][j][k] = processPixelWithKernal(i, j, kernal, k);
+        }
+      }
+    }
+  }
+
+  /**
+   * Process a pixel with a kernal.
+   */
+  private int processPixelWithKernal(int x, int y, double[][] kernal, int channel) {
+    int sum = 0;
+    int kernalXOffset = kernal.length / 2;
+    int kernalYOffset = kernal[0].length / 2;
+    for (int i = 0; i < kernal.length; i++) {
+      for (int j = 0; j < kernal[0].length; j++) {
+        if(x + i - kernalXOffset >= 0 && x + i - kernalXOffset < image.length &&
+                y + j - kernalYOffset >= 0 && y + j - kernalYOffset < image[0].length) {
+          sum +=  (image[x + i - kernalXOffset][y + j - kernalYOffset][channel] * kernal[i][j]);
+        }
+      }
+    }
+    return sum;
+  }
+
 
   /**
    * Returns the image array.

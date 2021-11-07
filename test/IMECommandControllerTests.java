@@ -21,7 +21,7 @@ public class IMECommandControllerTests {
   IMEModel model = new IMEModel();
   IView view = new TextView(System.out);
   IController controller = new IMECommandController(model, System.in, view);
-  String koalaPPMpath = "res/koala1.ppm";
+  String koalaPPMpath = "res/koala.ppm";
   String venicePPMPath = "res/veniceSave.ppm";
   String veniceRedPath = "res/veniceR.ppm";
   String veniceBluePath = "res/veniceB.ppm";
@@ -32,6 +32,7 @@ public class IMECommandControllerTests {
   String veniceHorizonPath = "res/veniceH.ppm";
   String veniceVertPath = "res/veniceVF.ppm";
   String veniceBrightPath = "res/veniceBr.ppm";
+
 
   /**
    * Tests for saving and loading a PPM file command.
@@ -159,6 +160,68 @@ public class IMECommandControllerTests {
     assertFalse(Files.mismatch(Paths.get(veniceValuePath),
             Paths.get("res/veniceGreen.ppm")) == -1L);
   }
+
+
+  /**
+   * Tests for applying green-component filter command.
+   *
+   * @throws IOException if File not found
+   */
+  @Test
+  public void testBlur() throws IOException {
+    String testLoadString = "load " + venicePPMPath + " v";
+    String testRedString2 = "blur v redK";
+    String testSaveString3 = "save res/veniceBlur.ppm redK";
+    Scanner s = new Scanner(testLoadString + "\n" + testRedString2 + "\n" +
+            testSaveString3 + "\n" + "q");
+    controller.setScanner(s);
+    controller.startProgram();
+    assertTrue(Files.mismatch(Paths.get(veniceGreenPath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertFalse(Files.mismatch(Paths.get(veniceRedPath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertFalse(Files.mismatch(Paths.get(veniceBluePath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertFalse(Files.mismatch(Paths.get(veniceIntensePath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertFalse(Files.mismatch(Paths.get(veniceLumaPath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertFalse(Files.mismatch(Paths.get(veniceValuePath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+  }
+
+  /**
+   * Tests for applying green-component filter command.
+   *
+   * @throws IOException if File not found
+   */
+  @Test
+  public void testSharpen() throws IOException {
+    String testLoadString = "load " + koalaPPMpath + " v";
+    String testRedString2 = "sharpen v redK";
+    String testSaveString3 = "save res/veniceS.ppm redK";
+    Scanner s = new Scanner(testLoadString + "\n" + testRedString2 + "\n" +
+            testSaveString3 + "\n" + "q");
+    controller.setScanner(s);
+    controller.startProgram();
+    assertTrue(Files.mismatch(Paths.get(veniceGreenPath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertFalse(Files.mismatch(Paths.get(veniceRedPath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertFalse(Files.mismatch(Paths.get(veniceBluePath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertFalse(Files.mismatch(Paths.get(veniceIntensePath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertFalse(Files.mismatch(Paths.get(veniceLumaPath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertFalse(Files.mismatch(Paths.get(veniceValuePath),
+            Paths.get("res/veniceBlur.ppm")) == -1L);
+  }
+
 
   /**
    * Tests for applying value-component filter command.
