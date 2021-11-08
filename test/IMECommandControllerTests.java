@@ -11,7 +11,9 @@ import model.IMEModel;
 import view.IView;
 import view.TextView;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -22,7 +24,7 @@ public class IMECommandControllerTests {
   IView view = new TextView(System.out);
   IController controller = new IMECommandController(model, System.in, view);
   String koalaPPMpath = "res/koala.ppm";
-  String venicePPMPath = "res/veniceSave.ppm";
+  String venicePPMPath = "res/venice.ppm";
   String veniceRedPath = "res/veniceR.ppm";
   String veniceBluePath = "res/veniceB.ppm";
   String veniceGreenPath = "res/veniceG.ppm";
@@ -32,6 +34,8 @@ public class IMECommandControllerTests {
   String veniceHorizonPath = "res/veniceH.ppm";
   String veniceVertPath = "res/veniceVF.ppm";
   String veniceBrightPath = "res/veniceBr.ppm";
+  String veniceSharpenPath = "res/veniceSh.ppm";
+  String veniceBlurPath = "res/veniceBl.ppm";
 
 
   /**
@@ -48,8 +52,8 @@ public class IMECommandControllerTests {
     controller.setScanner(s);
     controller.startProgram();
     assertTrue(Files.exists(Paths.get("res/veniceTEST.ppm")));
-    assertTrue(Files.mismatch(Paths.get(venicePPMPath),
-            Paths.get("res/veniceTEST.ppm")) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceTEST.ppm")));
   }
 
   /**
@@ -67,8 +71,8 @@ public class IMECommandControllerTests {
     controller.setScanner(s);
     controller.startProgram();
     assertTrue(Files.exists(Paths.get("res/veniceTEST.ppm")));
-    assertTrue(Files.mismatch(Paths.get("res/veniceTEST.ppm"),
-            Paths.get(venicePPMPath)) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get("res/veniceTEST.ppm"),
+            Paths.get(venicePPMPath)));
   }
 
   /**
@@ -85,20 +89,20 @@ public class IMECommandControllerTests {
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
     controller.startProgram();
-    assertTrue(Files.mismatch(Paths.get(veniceRedPath),
-            Paths.get("res/veniceRed.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
-            Paths.get("res/veniceRed.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceBluePath),
-            Paths.get("res/veniceRed.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceGreenPath),
-            Paths.get("res/veniceRed.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceIntensePath),
-            Paths.get("res/veniceRed.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceLumaPath),
-            Paths.get("res/veniceRed.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceValuePath),
-            Paths.get("res/veniceRed.ppm")) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get(veniceRedPath),
+            Paths.get("res/veniceRed.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceRed.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceBluePath),
+            Paths.get("res/veniceRed.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceGreenPath),
+            Paths.get("res/veniceRed.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceIntensePath),
+            Paths.get("res/veniceRed.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceLumaPath),
+            Paths.get("res/veniceRed.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceValuePath),
+            Paths.get("res/veniceRed.ppm")));
   }
 
   /**
@@ -115,20 +119,20 @@ public class IMECommandControllerTests {
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
     controller.startProgram();
-    assertTrue(Files.mismatch(Paths.get(veniceBluePath),
-            Paths.get("res/veniceBlue.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
-            Paths.get("res/veniceBlue.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceRedPath),
-            Paths.get("res/veniceBlue.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceGreenPath),
-            Paths.get("res/veniceBlue.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceIntensePath),
-            Paths.get("res/veniceBlue.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceLumaPath),
-            Paths.get("res/veniceBlue.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceValuePath),
-            Paths.get("res/veniceBlue.ppm")) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get(veniceBluePath),
+            Paths.get("res/veniceBlue.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceBlue.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceRedPath),
+            Paths.get("res/veniceBlue.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceGreenPath),
+            Paths.get("res/veniceBlue.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceIntensePath),
+            Paths.get("res/veniceBlue.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceLumaPath),
+            Paths.get("res/veniceBlue.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceValuePath),
+            Paths.get("res/veniceBlue.ppm")));
   }
 
   /**
@@ -145,20 +149,20 @@ public class IMECommandControllerTests {
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
     controller.startProgram();
-    assertTrue(Files.mismatch(Paths.get(veniceGreenPath),
-            Paths.get("res/veniceGreen.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
-            Paths.get("res/veniceGreen.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceRedPath),
-            Paths.get("res/veniceGreen.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceBluePath),
-            Paths.get("res/veniceGreen.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceIntensePath),
-            Paths.get("res/veniceGreen.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceLumaPath),
-            Paths.get("res/veniceGreen.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceValuePath),
-            Paths.get("res/veniceGreen.ppm")) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get(veniceGreenPath),
+            Paths.get("res/veniceGreen.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceGreen.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceRedPath),
+            Paths.get("res/veniceGreen.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceBluePath),
+            Paths.get("res/veniceGreen.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceIntensePath),
+            Paths.get("res/veniceGreen.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceLumaPath),
+            Paths.get("res/veniceGreen.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceValuePath),
+            Paths.get("res/veniceGreen.ppm")));
   }
 
 
@@ -176,20 +180,20 @@ public class IMECommandControllerTests {
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
     controller.startProgram();
-    assertTrue(Files.mismatch(Paths.get(veniceGreenPath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceRedPath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceBluePath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceIntensePath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceLumaPath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceValuePath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get(veniceBlurPath),
+            Paths.get("res/veniceBlur.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceBlur.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceSharpenPath),
+            Paths.get("res/veniceBlur.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceBluePath),
+            Paths.get("res/veniceBlur.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceIntensePath),
+            Paths.get("res/veniceBlur.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceLumaPath),
+            Paths.get("res/veniceBlur.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceValuePath),
+            Paths.get("res/veniceBlur.ppm")));
   }
 
   /**
@@ -199,27 +203,27 @@ public class IMECommandControllerTests {
    */
   @Test
   public void testSharpen() throws IOException {
-    String testLoadString = "load " + koalaPPMpath + " v";
+    String testLoadString = "load " + venicePPMPath + " v";
     String testRedString2 = "sharpen v redK";
-    String testSaveString3 = "save res/veniceS.ppm redK";
+    String testSaveString3 = "save res/veniceSharpen.ppm redK";
     Scanner s = new Scanner(testLoadString + "\n" + testRedString2 + "\n" +
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
     controller.startProgram();
-    assertTrue(Files.mismatch(Paths.get(veniceGreenPath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceRedPath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceBluePath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceIntensePath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceLumaPath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceValuePath),
-            Paths.get("res/veniceBlur.ppm")) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get(veniceSharpenPath),
+            Paths.get("res/veniceSharpen.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceSharpen.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceBlurPath),
+            Paths.get("res/veniceSharpen.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceBluePath),
+            Paths.get("res/veniceSharpen.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceIntensePath),
+            Paths.get("res/veniceSharpen.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceLumaPath),
+            Paths.get("res/veniceSharpen.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceValuePath),
+            Paths.get("res/veniceSharpen.ppm")));
   }
 
 
@@ -237,20 +241,20 @@ public class IMECommandControllerTests {
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
     controller.startProgram();
-    assertTrue(Files.mismatch(Paths.get(veniceValuePath),
-            Paths.get("res/veniceValue.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
-            Paths.get("res/veniceValue.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceRedPath),
-            Paths.get("res/veniceValue.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceBluePath),
-            Paths.get("res/veniceValue.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceGreenPath),
-            Paths.get("res/veniceValue.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceIntensePath),
-            Paths.get("res/veniceValue.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceLumaPath),
-            Paths.get("res/veniceValue.ppm")) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get(veniceValuePath),
+            Paths.get("res/veniceValue.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceValue.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceRedPath),
+            Paths.get("res/veniceValue.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceBluePath),
+            Paths.get("res/veniceValue.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceGreenPath),
+            Paths.get("res/veniceValue.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceIntensePath),
+            Paths.get("res/veniceValue.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceLumaPath),
+            Paths.get("res/veniceValue.ppm")));
 
   }
 
@@ -268,20 +272,20 @@ public class IMECommandControllerTests {
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
     controller.startProgram();
-    assertTrue(Files.mismatch(Paths.get(veniceIntensePath),
-            Paths.get("res/veniceIntensity.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
-            Paths.get("res/veniceIntensity.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceRedPath),
-            Paths.get("res/veniceIntensity.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceBluePath),
-            Paths.get("res/veniceIntensity.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceGreenPath),
-            Paths.get("res/veniceIntensity.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceValuePath),
-            Paths.get("res/veniceIntensity.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceLumaPath),
-            Paths.get("res/veniceIntensity.ppm")) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get(veniceIntensePath),
+            Paths.get("res/veniceIntensity.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceIntensity.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceRedPath),
+            Paths.get("res/veniceIntensity.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceBluePath),
+            Paths.get("res/veniceIntensity.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceGreenPath),
+            Paths.get("res/veniceIntensity.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceValuePath),
+            Paths.get("res/veniceIntensity.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceLumaPath),
+            Paths.get("res/veniceIntensity.ppm")));
   }
 
   /**
@@ -298,20 +302,20 @@ public class IMECommandControllerTests {
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
     controller.startProgram();
-    assertTrue(Files.mismatch(Paths.get(veniceLumaPath),
-            Paths.get("res/veniceLuma.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
-            Paths.get("res/veniceLuma.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceRedPath),
-            Paths.get("res/veniceLuma.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceBluePath),
-            Paths.get("res/veniceLuma.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceGreenPath),
-            Paths.get("res/veniceLuma.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceValuePath),
-            Paths.get("res/veniceLuma.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceIntensePath),
-            Paths.get("res/veniceLuma.ppm")) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get(veniceLumaPath),
+            Paths.get("res/veniceLuma.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceLuma.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceRedPath),
+            Paths.get("res/veniceLuma.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceBluePath),
+            Paths.get("res/veniceLuma.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceGreenPath),
+            Paths.get("res/veniceLuma.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceValuePath),
+            Paths.get("res/veniceLuma.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceIntensePath),
+            Paths.get("res/veniceLuma.ppm")));
   }
 
   /**
@@ -328,12 +332,12 @@ public class IMECommandControllerTests {
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
     controller.startProgram();
-    assertTrue(Files.mismatch(Paths.get(veniceVertPath),
-            Paths.get("res/veniceVert.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
-            Paths.get("res/veniceVert.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceHorizonPath),
-            Paths.get("res/veniceVert.ppm")) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get(veniceVertPath),
+            Paths.get("res/veniceVert.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceVert.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceHorizonPath),
+            Paths.get("res/veniceVert.ppm")));
   }
 
   /**
@@ -350,12 +354,12 @@ public class IMECommandControllerTests {
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
     controller.startProgram();
-    assertTrue(Files.mismatch(Paths.get(veniceHorizonPath),
-            Paths.get("res/veniceHoriz.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
-            Paths.get("res/veniceHoriz.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceVertPath),
-            Paths.get("res/veniceHoriz.ppm")) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get(veniceHorizonPath),
+            Paths.get("res/veniceHoriz.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceHoriz.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceVertPath),
+            Paths.get("res/veniceHoriz.ppm")));
   }
 
   /**
@@ -372,20 +376,20 @@ public class IMECommandControllerTests {
             testSaveString3 + "\n" + "q");
     controller.setScanner(s);
     controller.startProgram();
-    assertTrue(Files.mismatch(Paths.get(veniceBrightPath),
-            Paths.get("res/veniceBright.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(venicePPMPath),
-            Paths.get("res/veniceBright.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceRedPath),
-            Paths.get("res/veniceBright.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceBluePath),
-            Paths.get("res/veniceBright.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceGreenPath),
-            Paths.get("res/veniceBright.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceValuePath),
-            Paths.get("res/veniceBright.ppm")) == -1L);
-    assertFalse(Files.mismatch(Paths.get(veniceIntensePath),
-            Paths.get("res/veniceBright.ppm")) == -1L);
+    assertEquals(-1L, Files.mismatch(Paths.get(veniceBrightPath),
+            Paths.get("res/veniceBright.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(venicePPMPath),
+            Paths.get("res/veniceBright.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceRedPath),
+            Paths.get("res/veniceBright.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceBluePath),
+            Paths.get("res/veniceBright.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceGreenPath),
+            Paths.get("res/veniceBright.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceValuePath),
+            Paths.get("res/veniceBright.ppm")));
+    assertNotEquals(-1L, Files.mismatch(Paths.get(veniceIntensePath),
+            Paths.get("res/veniceBright.ppm")));
   }
 
   /**
@@ -395,7 +399,7 @@ public class IMECommandControllerTests {
   public void testNoImageAtPath() {
     IMEModel model = new IMEModel();
     IView view = new TextView(System.out);
-    String testLoadString = "load res/venice.ppm venice \nload res/paris.ppm paris " +
+    String testLoadString = "load res/venice.ppm venice \n" +"load res/paris.ppm paris " +
             "\nsave res/veniceCopy.ppm venice \nsave res/parisCopy.ppm paris \nq";
     Scanner s = new Scanner(testLoadString);
     IController controller = new IMECommandController(model, System.in, view);
@@ -423,15 +427,15 @@ public class IMECommandControllerTests {
     controller.setScanner(s);
     controller.startProgram();
     assertFalse(Files.exists(Paths.get("res/vBrighterFailed.ppm")));
-    assertFalse(Files.mismatch(Paths.get("res/vOriginal.ppm"),
-            Paths.get("res/vbrighter.ppm")) == -1L);
+    assertNotEquals(-1L, Files.mismatch(Paths.get("res/vOriginal.ppm"),
+            Paths.get("res/vbrighter.ppm")));
   }
 
   /**
    * Tests for IMECommandController class for case that given image does not exist within the model.
    */
   @Test
-  public void testImageNotLoaded() throws IOException {
+  public void testImageNotLoaded(){
     IMEModel model = new IMEModel();
     IView view = new TextView(System.out);
     String testLoadString = "load res/venice.ppm v1 \nload res/venice.ppm v2" +

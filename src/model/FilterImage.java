@@ -6,8 +6,8 @@ package model;
  */
 public class FilterImage implements Filter {
   protected int[][][] image;
-  private int width;
-  private int height;
+  private final int width;
+  private final int height;
 
   static final double[][] blurImageKernal = new double[][]{
           {1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0},
@@ -32,6 +32,7 @@ public class FilterImage implements Filter {
    */
   public FilterImage(int[][][] image) {
     this.image = copyImage(image);
+    clamp();
     this.height = image.length;
     this.width = image[0].length;
   }
@@ -41,7 +42,8 @@ public class FilterImage implements Filter {
    */
   @Override
   public void blurImage() {
-    processImageWithKernal(blurImageKernal);
+    processImageWithKernel(blurImageKernal);
+    clamp();
   }
 
   /**
@@ -49,16 +51,17 @@ public class FilterImage implements Filter {
    */
   @Override
   public void sharpenImage() {
-    processImageWithKernal(sharpenImageKernal);
+    processImageWithKernel(sharpenImageKernal);
+    clamp();
   }
 
   /**
    * Processes the image with a kernal.
    */
-  private void processImageWithKernal(double[][] kernal) {
-    for (int i = 0; i < image.length; i++) {
-      for (int j = 0; j < image[0].length; j++) {
-        for (int k = 0; k < image[0][0].length; k++) {
+  private void processImageWithKernel(double[][] kernal) {
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        for (int k = 0; k < 3; k++) {
           image[i][j][k] = processPixelWithKernal(i, j, kernal, k);
         }
       }
@@ -74,23 +77,41 @@ public class FilterImage implements Filter {
     int kernalYOffset = kernal[0].length / 2;
     for (int i = 0; i < kernal.length; i++) {
       for (int j = 0; j < kernal[0].length; j++) {
-        if(x + i - kernalXOffset >= 0 && x + i - kernalXOffset < image.length &&
-                y + j - kernalYOffset >= 0 && y + j - kernalYOffset < image[0].length) {
-          sum +=  (image[x + i - kernalXOffset][y + j - kernalYOffset][channel] * kernal[i][j]);
+        if (x + i - kernalXOffset >= 0 && x + i - kernalXOffset < this.height &&
+                y + j - kernalYOffset >= 0 && y + j - kernalYOffset < this.width) {
+          sum += (int) (image[x + i - kernalXOffset][y + j - kernalYOffset][channel] * kernal[i][j]);
         }
       }
     }
     return sum;
   }
 
+  /**
+   * Clamps the RGB values to be between 0 and 255.
+   */
+  private void clamp() {
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        for (int k = 0; k < 3; k++) {
+          if (this.image[i][j][k] > 255) {
+            this.image[i][j][k] = 255;
+          } else if (image[i][j][k] < 0) {
+            this.image[i][j][k] = 0;
+          }
+        }
+      }
+    }
+  }
+
 
   /**
    * Returns the image array.
    *
-   * @return
+   * @return image array
    */
   @Override
   public int[][][] getNewImage() {
+    clamp();
     return this.image;
   }
 
@@ -99,12 +120,13 @@ public class FilterImage implements Filter {
    */
   @Override
   public void redScale() {
-    for (int i = 0; i < image.length; i++) {
-      for (int j = 0; j < image[0].length; j++) {
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
         image[i][j][1] = image[i][j][0];
         image[i][j][2] = image[i][j][0];
       }
     }
+    clamp();
   }
 
   /**
@@ -112,13 +134,13 @@ public class FilterImage implements Filter {
    */
   @Override
   public void blueScale() {
-    for (int i = 0; i < image.length; i++) {
-      for (int j = 0; j < image[0].length; j++) {
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
         image[i][j][0] = image[i][j][2];
         image[i][j][1] = image[i][j][2];
       }
     }
-
+    clamp();
   }
 
   /**
@@ -126,12 +148,13 @@ public class FilterImage implements Filter {
    */
   @Override
   public void greenScale() {
-    for (int i = 0; i < image.length; i++) {
-      for (int j = 0; j < image[0].length; j++) {
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
         image[i][j][0] = image[i][j][1];
         image[i][j][2] = image[i][j][1];
       }
     }
+    clamp();
   }
 
   /**
@@ -139,15 +162,16 @@ public class FilterImage implements Filter {
    */
   @Override
   public void valueScale() {
-    int maxVal = 0;
-    for (int i = 0; i < image.length; i++) {
-      for (int j = 0; j < image[0].length; j++) {
+    int maxVal;
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
         maxVal = Math.max(Math.max(image[i][j][0], image[i][j][1]), image[i][j][2]);
         image[i][j][0] = maxVal;
         image[i][j][1] = maxVal;
         image[i][j][2] = maxVal;
       }
     }
+    clamp();
   }
 
   /**
@@ -155,15 +179,16 @@ public class FilterImage implements Filter {
    */
   @Override
   public void intensityScale() {
-    int avgVal = 0;
-    for (int i = 0; i < image.length; i++) {
-      for (int j = 0; j < image[0].length; j++) {
+    int avgVal;
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
         avgVal = (image[i][j][0] + image[i][j][1] + image[i][j][2]) / 3;
         image[i][j][0] = avgVal;
         image[i][j][1] = avgVal;
         image[i][j][2] = avgVal;
       }
     }
+    clamp();
   }
 
   /**
@@ -171,9 +196,9 @@ public class FilterImage implements Filter {
    */
   @Override
   public void lumaScale() {
-    int luma = 0;
-    for (int i = 0; i < image.length; i++) {
-      for (int j = 0; j < image[0].length; j++) {
+    int luma;
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
         luma = (int) Math.round((0.2126 * image[i][j][0]) + (0.7152 * image[i][j][1]) +
                 (0.0722 * image[i][j][2]));
         image[i][j][0] = luma;
@@ -181,6 +206,7 @@ public class FilterImage implements Filter {
         image[i][j][2] = luma;
       }
     }
+    clamp();
   }
 
   /**
@@ -215,6 +241,7 @@ public class FilterImage implements Filter {
         image[i][j] = tmp;
       }
     }
+    clamp();
   }
 
   /**
@@ -223,7 +250,7 @@ public class FilterImage implements Filter {
   @Override
   public void flipVertically() {
     System.out.println("flipping image: ");
-    System.out.println(this.image.length);
+    System.out.println(this.height);
     System.out.println(this.width);
     System.out.println(this.height);
 
@@ -234,6 +261,7 @@ public class FilterImage implements Filter {
         image[i][j] = tmp;
       }
     }
+    clamp();
   }
 
   /**
@@ -250,5 +278,7 @@ public class FilterImage implements Filter {
         }
       }
     }
+    clamp();
   }
+
 }
