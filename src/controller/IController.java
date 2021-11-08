@@ -11,5 +11,5 @@ public interface IController {
    */
   void startProgram();
 
-  public void setScanner(Scanner s);
+  void setScanner(Scanner s);
 }

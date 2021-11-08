@@ -25,13 +25,12 @@ import view.IView;
  * method processCommand
  */
 public class IMECommandController implements IController {
-  private IMEModel model;
-  private IView view;
+  private final IMEModel model;
+  private final IView view;
   private Scanner s;
 
   /**
    * Constructor for the IMECommandController.
-   *
    * @param in input stream
    */
   public IMECommandController(IMEModel model, InputStream in, IView view) {
@@ -49,16 +48,11 @@ public class IMECommandController implements IController {
     boolean quit = false;
     String[] line = null;
     view.showOptions();
-
-    while (!quit) {
-      view.showString("Enter Command:");
-      while (s.hasNextLine()) {
-        //tell view to show the string so far.
-        //view.showString(this.model.getString());
-        //tell view to show options
+    view.showString("Enter Command:");
+    view.prefix();
+    while (s.hasNextLine()) {
+      while (!quit) {
         IMECommand cmd = null;
-        //accept user input
-        //String array of scanner line seperated by spaces
         line = s.nextLine().split(" ");
         try {
           switch (line[0].toLowerCase()) {
@@ -105,7 +99,6 @@ public class IMECommandController implements IController {
               view.showString("Attempting to create a blur copy of " + line[1] +
                       "'s image, referred to henceforth by " + line[2] + "...");
               break;
-
             case "sharpen":
               cmd = new KernalFilter.SharpenImage(line[1], line[2]);
               view.showString("Attempting to create a blur copy of " + line[1] +
@@ -137,16 +130,12 @@ public class IMECommandController implements IController {
                       "'s luma component, referred to henceforth by " + line[2] + "...");
               break;
             case "run":
-              String data = "";
-              data = new String(Files.readAllBytes(Paths.get(line[1])));
-              // System.out.print(data);
+              String data = new String(Files.readAllBytes(Paths.get(line[1])));
               this.s = new Scanner(data);
               view.showString("Attempting to run script at " + line[1] + "...");
               break;
             case "m":
               view.showOptions();
-              //ask for string input
-              //give to model
               break;
             case "q":
               quit = true;
@@ -166,16 +155,24 @@ public class IMECommandController implements IController {
         } catch (IndexOutOfBoundsException e) {
           view.showString("Invalid Command Parameters:" + Arrays.toString(line));
         } catch (FileNotFoundException e) {
-          e.printStackTrace();
+          view.showString("Cannot find file:" + Arrays.toString(line));
         } catch (IOException e) {
-          e.printStackTrace();
+          view.showString("IOException during transmission:" + Arrays.toString(line));
         }
-        view.showString("***************" +
-                "*****************************************************************");
+        view.showString("**********************************" +
+                "**********************************************");
+        if (!quit) {
+          view.showString("Enter Command:");
+          view.prefix();
+        }
       }
     }
   }
 
+  /**
+   * This method sets the input scanner to the given Scanner object.
+   * @param s Scanner object to be used as the input scanner.
+   */
   public void setScanner(Scanner s) {
     this.s = s;
   }

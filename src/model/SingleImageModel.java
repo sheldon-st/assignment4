@@ -5,7 +5,7 @@ package model;
  */
 public class SingleImageModel implements IModel {
   private int[][][] image;
-  private String imagePath;
+  private final String imagePath;
 
   /**
    * Constructor for SingleImageModel with no parameters.

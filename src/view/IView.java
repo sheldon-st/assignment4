@@ -18,4 +18,9 @@ public interface IView {
    * Prints the error message to the console .
    */
   void showOptionError();
+
+  /**
+   * Prints the input prefix to the console.
+   */
+  void prefix();
 }

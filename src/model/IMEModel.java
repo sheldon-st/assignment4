@@ -43,11 +43,12 @@ public class IMEModel {
   public void saveImage(String imagePath, String imageName) {
     SingleImageModel image = (SingleImageModel) images.get(imageName);
 
-    ImageUtil.writePPM(image.getImage(), image.getImage()[0].length, image.getImage().length,
+    ImageUtil.writeImage(image.getImage(), image.getImage()[0].length, image.getImage().length,
             imagePath);
     System.out.println("Height: " + image.getImage().length);
     System.out.println("Width: " + image.getImage()[0].length);
   }
+
 
   /**
    * Returns the gallery list.

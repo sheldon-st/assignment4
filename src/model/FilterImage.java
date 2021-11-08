@@ -5,16 +5,11 @@ package model;
  * an image such as grayscale, value, luma, and intensity component.
  */
 public class FilterImage implements Filter {
-  protected int[][][] image;
-  private final int width;
-  private final int height;
-
   static final double[][] blurImageKernal = new double[][]{
           {1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0},
           {1.0 / 8.0, 1.0 / 4.0, 1.0 / 8.0},
           {1.0 / 16.0, 1.0 / 8.0, 1.0 / 16.0}
   };
-
   static final double[][] sharpenImageKernal = new double[][]{
           {-1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0},
           {-1.0 / 8.0, 1.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0, -1.0 / 8.0},
@@ -22,6 +17,9 @@ public class FilterImage implements Filter {
           {-1.0 / 8.0, 1.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0, -1.0 / 8.0},
           {-1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0, -1.0 / 8.0},
   };
+  private final int width;
+  private final int height;
+  protected int[][][] image;
 
 
   /**

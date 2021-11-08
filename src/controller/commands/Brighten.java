@@ -10,9 +10,9 @@ import model.SingleImageModel;
  * This class is used to brighten the image.
  */
 public class Brighten implements IMECommand {
-  private int increment;
-  private String source;
-  private String dest;
+  private final int increment;
+  private final String source;
+  private final String dest;
 
   /**
    * Constructor for Brighten.

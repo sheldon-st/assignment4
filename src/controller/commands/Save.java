@@ -7,8 +7,8 @@ import model.IMEModel;
  * This class represents the command to load a file.
  */
 public class Save implements IMECommand {
-  private String path;
-  private String name;
+  private final String path;
+  private final String name;
 
   /**
    * Constructor.

@@ -2,11 +2,15 @@ package model;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.Optional;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 
 /**
  * This class contains utility methods to read a PPM image from file return a 3D int representation
@@ -73,14 +77,43 @@ public class ImageUtil {
   }
 
   /**
-   * Writes given image with given width. height and name into a PPM file.
+   * Writes a 3d array of ints to a ppm, png or jpg file. Uses the file extension to
+   * determine what type of file to save to.
    *
-   * @param imagePixels Represents an image
-   * @param width       represents width of image
-   * @param height      represents height of image
-   * @param filename    represents file name of image
+   * @param filename    name of file to be saved.
+   * @param imagePixels 3d array of ints representing an image.
+   * @param width       width of image.
+   * @param height      height of image.
+   *                    <p>
+   *                    throws IllegalArgumentException if the file extension is not one of the supported types.
    */
-  public static void writePPM(int[][][] imagePixels, int width, int height, String filename) {
+  public static void writeImage(int[][][] imagePixels, int width, int height, String filename) {
+    Optional<String> extension = getExtension(filename);
+
+    switch (extension.get()) {
+      case "ppm":
+        writePPM(imagePixels, width, height, filename);
+        break;
+      case "png":
+        writePNG(imagePixels, width, height, filename);
+        break;
+      case "jpg":
+        writeJPG(imagePixels, width, height, filename);
+        break;
+      default:
+        System.out.println("Invalid file extension. Supported extensions are: .ppm, .png, .jpg");
+    }
+  }
+
+  /**
+   * Writes a 3d array of ints to a png file.
+   *
+   * @param filename    name of file to be saved.
+   * @param imagePixels 3d array of ints representing an image.
+   * @param width       width of image.
+   * @param height      height of image.
+   */
+  private static void writePNG(int[][][] imagePixels, int width, int height, String filename) {
     try {
       BufferedImage bImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
       for (int i = 0; i < height; i++) {
@@ -90,6 +123,57 @@ public class ImageUtil {
         }
       }
 
+      File writer = new File(filename);
+      ImageIO.write(bImage, "png", writer);
+      System.out.println("Saving ran");
+    } catch (Exception e) {
+      System.out.println("Error: " + e);
+    }
+  }
+
+  /**
+   * Writes a 3d array of ints to a jpg file.
+   *
+   * @param filename    name of file to be saved.
+   * @param imagePixels 3d array of ints representing an image.
+   * @param width       width of image.
+   * @param height      height of image.
+   */
+  private static void writeJPG(int[][][] imagePixels, int width, int height, String filename) {
+    try {
+      BufferedImage bImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+      for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+          bImage.setRGB(j, i, (imagePixels[i][j][0] << 16) | (imagePixels[i][j][1] << 8) |
+                  imagePixels[i][j][2]);
+        }
+      }
+      File writer = new File(filename);
+      ImageIO.write(bImage, "jpg", writer);
+      System.out.println("Saving ran");
+    } catch (Exception e) {
+      System.out.println("Error: " + e);
+    }
+  }
+
+
+  /**
+   * Writes given image with given width. height and name into a PPM file.
+   *
+   * @param imagePixels Represents an image
+   * @param width       represents width of image
+   * @param height      represents height of image
+   * @param filename    represents file name of image
+   */
+  private static void writePPM(int[][][] imagePixels, int width, int height, String filename) {
+    try {
+      BufferedImage bImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+      for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+          bImage.setRGB(j, i, (imagePixels[i][j][0] << 16) | (imagePixels[i][j][1] << 8) |
+                  imagePixels[i][j][2]);
+        }
+      }
 
       BufferedWriter writer =
               new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename)));
@@ -108,6 +192,18 @@ public class ImageUtil {
     } catch (Exception e) {
       System.out.println("Error: " + e);
     }
+  }
+
+  /**
+   * Returns the extension of a file from the name.
+   *
+   * @param filename name of file
+   * @return extension of file
+   */
+  private static Optional<String> getExtension(String filename) {
+    return Optional.ofNullable(filename)
+            .filter(separator -> separator.contains("."))
+            .map(ext -> ext.substring(filename.lastIndexOf(".") + 1));
   }
 }
 

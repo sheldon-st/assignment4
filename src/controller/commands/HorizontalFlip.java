@@ -10,8 +10,8 @@ import model.SingleImageModel;
  * This class is used to flip the image horizontally.
  */
 public class HorizontalFlip implements IMECommand {
-  private String source;
-  private String dest;
+  private final String source;
+  private final String dest;
 
   /**
    * Constructor.

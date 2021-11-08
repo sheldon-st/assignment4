@@ -15,8 +15,8 @@ public class Components {
    * This class is used to apply a greyscale filter from the red component of an image.
    */
   public static class RedComponent implements IMECommand {
-    private String source;
-    private String dest;
+    private final String source;
+    private final String dest;
 
     /**
      * This constructor is used to create a new RedComponent command.
@@ -47,8 +47,8 @@ public class Components {
    * This class is used to apply a greyscale filter from the blue component of an image.
    */
   public static class BlueComponent implements IMECommand {
-    private String source;
-    private String dest;
+    private final String source;
+    private final String dest;
 
     /**
      * This constructor is used to create a new BlueComponent command.
@@ -79,8 +79,8 @@ public class Components {
    * This class is used to apply a greyscale filter from the green component of an image.
    */
   public static class GreenComponent implements IMECommand {
-    private String source;
-    private String dest;
+    private final String source;
+    private final String dest;
 
     /**
      * This constructor is used to create a new GreenComponent command.
@@ -111,8 +111,8 @@ public class Components {
    * This class is used to apply a greyscale filter from the Intensity component of an image.
    */
   public static class IntensityComponent implements IMECommand {
-    private String source;
-    private String dest;
+    private final String source;
+    private final String dest;
 
     /**
      * This constructor is used to create a new IntensityComponent command.
@@ -143,8 +143,8 @@ public class Components {
    * This class is used to apply a greyscale filter from the value component of an image.
    */
   public static class ValueComponent implements IMECommand {
-    private String source;
-    private String dest;
+    private final String source;
+    private final String dest;
 
     /**
      * This constructor is used to create a new ValueComponent command.
@@ -175,8 +175,8 @@ public class Components {
    * This class is used to apply a greyscale filter from the Luma component of an image.
    */
   public static class LumaComponent implements IMECommand {
-    private String source;
-    private String dest;
+    private final String source;
+    private final String dest;
 
     /**
      * This constructor is used to create a new LumaComponent command.

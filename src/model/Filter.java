@@ -44,12 +44,12 @@ public interface Filter {
   /**
    * Sharpen Image.
    */
-   void sharpenImage();
+  void sharpenImage();
 
-   /**
-    * Blur Image
-    */
-   void blurImage();
+  /**
+   * Blur Image
+   */
+  void blurImage();
 
 
   /**
