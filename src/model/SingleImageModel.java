@@ -4,8 +4,8 @@ package model;
  * This class represents a single image model.
  */
 public class SingleImageModel implements IModel {
-  private int[][][] image;
   private final String imagePath;
+  private int[][][] image;
 
   /**
    * Constructor for SingleImageModel with no parameters.

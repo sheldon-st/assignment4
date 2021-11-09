@@ -31,6 +31,7 @@ public class IMECommandController implements IController {
 
   /**
    * Constructor for the IMECommandController.
+   *
    * @param in input stream
    */
   public IMECommandController(IMEModel model, InputStream in, IView view) {
@@ -171,6 +172,7 @@ public class IMECommandController implements IController {
 
   /**
    * This method sets the input scanner to the given Scanner object.
+   *
    * @param s Scanner object to be used as the input scanner.
    */
   public void setScanner(Scanner s) {

@@ -473,5 +473,62 @@ public class IMECommandControllerTests {
     assertFalse(Files.exists(Paths.get("res/veniceCopy3.ppm")));
     assertFalse(Files.exists(Paths.get("res/veniceCopy3.ppm")));
   }
+
+  /**
+   * Tests for IMECommandController reading and saving a jpg file.
+   */
+  @Test
+  public void testLoadSaveJPG() throws IOException {
+    IMEModel model = new IMEModel();
+    IView view = new TextView(System.out);
+    String testLoadString = "load res/koala.jpg k1 \nsave res/koalaFromJpg.ppm k1 " +
+            "\nload res/venice.ppm v1 \nsave res/veniceFromPpm.jpg v1 \nq";
+    Scanner s = new Scanner(testLoadString);
+    IController controller = new IMECommandController(model, System.in, view);
+    controller.setScanner(s);
+    controller.startProgram();
+    assertTrue(Files.exists(Paths.get("res/koalaFromJpg.ppm")));
+    assertTrue(Files.exists(Paths.get("res/veniceFromPpm.jpg")));
+    assertTrue(Files.isReadable(Paths.get("res/koalaFromJpg.ppm")));
+    assertTrue(Files.isReadable(Paths.get("res/veniceFromPpm.jpg")));
+  }
+
+  /**
+   * Tests for IMECommandController reading and saving a png file.
+   */
+  @Test
+  public void testLoadSavePng() throws IOException {
+    IMEModel model = new IMEModel();
+    IView view = new TextView(System.out);
+    String testLoadString = "load res/koala.png k1 \nsave res/koalaFromPng.ppm k1 " +
+            "\nload res/venice.ppm v1 \nsave res/veniceFromPpm.png v1 \nq";
+    Scanner s = new Scanner(testLoadString);
+    IController controller = new IMECommandController(model, System.in, view);
+    controller.setScanner(s);
+    controller.startProgram();
+    assertTrue(Files.exists(Paths.get("res/koalaFromPng.ppm")));
+    assertTrue(Files.exists(Paths.get("res/veniceFromPpm.png")));
+    assertTrue(Files.isReadable(Paths.get("res/koalaFromPng.ppm")));
+    assertTrue(Files.isReadable(Paths.get("res/veniceFromPpm.png")));
+  }
+
+  /**
+   * Tests for IMECommandController reading and saving a bmp file.
+   */
+  @Test
+  public void testLoadSaveBmp() throws IOException {
+    IMEModel model = new IMEModel();
+    IView view = new TextView(System.out);
+    String testLoadString = "load res/koala.bmp k1 \nsave res/koalaFromBmp.ppm k1 " +
+            "\nload res/venice.ppm v1 \nsave res/veniceFromPpm.bmp v1 \nq";
+    Scanner s = new Scanner(testLoadString);
+    IController controller = new IMECommandController(model, System.in, view);
+    controller.setScanner(s);
+    controller.startProgram();
+    assertTrue(Files.exists(Paths.get("res/koalaFromBmp.ppm")));
+    assertTrue(Files.exists(Paths.get("res/veniceFromPpm.bmp")));
+    assertTrue(Files.isReadable(Paths.get("res/koalaFromBmp.ppm")));
+    assertTrue(Files.isReadable(Paths.get("res/veniceFromPpm.bmp")));
+  }
 }
 
