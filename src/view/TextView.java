@@ -35,10 +35,10 @@ public class TextView implements view.IView {
     //print the UI
     out.println("Menu: ");
     out.println(" load [image-path] [image-name]: loads an image from [image-path] " +
-            "to be referred to as [image-name]");
+            "to be referred to as [image-name]" + "\n   Supported file types are .ppm, .png, .jpg and .bmp");
     out.println(" -save [image-path] [image-name]: saves image [image-name] " +
             "to path [image-path].\n  File type is determined by extension of provided [image-path]. "
-            + "Supported file types are .ppm, .png, and .jpg");
+            + "Supported file types are .ppm, .png, .jpg and .bmp");
     // flips
     out.println(" -horizontal-flip [image-name] [dest-image-name]: " +
             "flips [image-name] horizontally and saves to gallery as [dest-image-name]");
