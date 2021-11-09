@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Optional;
 import java.util.Scanner;
@@ -17,6 +18,64 @@ import javax.imageio.ImageIO;
  * of the file, and write a image into a PPM file.
  */
 public class ImageUtil {
+
+
+  /**
+   * Creates a 3d array of ints from a to a ppm, png or jpg file. Uses the file extension to
+   * determine what type of file to read to.
+   **/
+  public static int[][][] readImage(String filename) {
+    Optional<String> extension = getExtension(filename);
+    System.out.println("Reading Image ...");
+    System.out.println("Image name: " + filename);
+
+    int[][][] imagePixels;
+
+
+    try{
+
+      if (extension.get().equals("ppm")) {
+        return readPPM(filename);
+      }else{
+        BufferedImage bimg = ImageIO.read(new File(filename));
+        int width          = bimg.getWidth();
+        int height         = bimg.getHeight();
+
+
+
+        System.out.println(extension.get());
+        System.out.println(width + " " + height);
+        // load res/koala.jpg k
+
+
+
+
+            imagePixels = new int[height][width][3];
+            for (int i = 0; i < height - 1; i++) {
+              for (int j = 0; j < width - 1; j++) {
+                System.out.println("x: " + i+ " ");
+                System.out.print("y: " + j);
+
+                int clr = bimg.getRGB(j, i);
+
+                int red =   (clr & 0x00ff0000) >> 16;
+                int green = (clr & 0x0000ff00) >> 8;
+                int blue =   clr & 0x000000ff;
+                imagePixels[i][j][0] = red;
+                imagePixels[i][j][1] = green;
+                imagePixels[i][j][2] = blue;
+              }
+            }
+            return imagePixels;
+
+      }
+
+    }
+    catch (IOException e){
+      System.out.println("Error: " + e);
+      return null;
+    }
+  }
 
 
   /**
