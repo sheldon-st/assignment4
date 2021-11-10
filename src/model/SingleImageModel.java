@@ -40,7 +40,7 @@ public class SingleImageModel implements IModel {
    */
   @Override
   public void setImage() {
-    this.image = ImageUtil.readImage(this.imagePath);
+    this.image = ImageUtil.readPPM(this.imagePath);
   }
 
   /**

@@ -16,4 +16,6 @@ public interface IModel {
    * @return image array
    */
   int[][][] getImage();
+
+
 }

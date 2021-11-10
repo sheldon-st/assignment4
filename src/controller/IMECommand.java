@@ -3,7 +3,8 @@ package controller;
 import model.IMEModel;
 
 /**
- * Created by blerner on 10/10/16.
+ * Interface for IME command objects. These objects are used to execute commands provided by
+ * the controller.
  */
 public interface IMECommand {
 

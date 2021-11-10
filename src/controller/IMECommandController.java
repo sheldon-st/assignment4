@@ -11,7 +11,6 @@ import java.util.Scanner;
 import controller.commands.Brighten;
 import controller.commands.Components;
 import controller.commands.HorizontalFlip;
-import controller.commands.KernalFilter;
 import controller.commands.Load;
 import controller.commands.Save;
 import controller.commands.VerticalFlip;
@@ -45,15 +44,21 @@ public class IMECommandController implements IController {
    * This method is the main method of the controller.
    * It will take in a stream of commands and process it.
    */
+  @Override
   public void startProgram() {
     boolean quit = false;
     String[] line = null;
     view.showOptions();
-    view.showString("Enter Command:");
-    view.prefix();
-    while (s.hasNextLine()) {
-      while (!quit) {
+
+    while (!quit) {
+      view.showString("Enter Command:");
+      while (s.hasNextLine()) {
+        //tell view to show the string so far.
+        //view.showString(this.model.getString());
+        //tell view to show options
         IMECommand cmd = null;
+        //accept user input
+        //String array of scanner line seperated by spaces
         line = s.nextLine().split(" ");
         try {
           switch (line[0].toLowerCase()) {
@@ -95,16 +100,6 @@ public class IMECommandController implements IController {
               view.showString("Attempting to create a greyscale copy of " + line[1] +
                       "'s red component, referred to henceforth by " + line[2] + "...");
               break;
-            case "blur":
-              cmd = new KernalFilter.BlurFilter(line[1], line[2]);
-              view.showString("Attempting to create a blur copy of " + line[1] +
-                      "'s image, referred to henceforth by " + line[2] + "...");
-              break;
-            case "sharpen":
-              cmd = new KernalFilter.SharpenImage(line[1], line[2]);
-              view.showString("Attempting to create a blur copy of " + line[1] +
-                      "'s image, referred to henceforth by " + line[2] + "...");
-              break;
             case "blue-component":
               cmd = new Components.BlueComponent(line[1], line[2]);
               view.showString("Attempting to create a greyscale copy of " + line[1] +
@@ -131,12 +126,16 @@ public class IMECommandController implements IController {
                       "'s luma component, referred to henceforth by " + line[2] + "...");
               break;
             case "run":
-              String data = new String(Files.readAllBytes(Paths.get(line[1])));
+              String data = "";
+              data = new String(Files.readAllBytes(Paths.get(line[1])));
+              // System.out.print(data);
               this.s = new Scanner(data);
               view.showString("Attempting to run script at " + line[1] + "...");
               break;
             case "m":
               view.showOptions();
+              //ask for string input
+              //give to model
               break;
             case "q":
               quit = true;
@@ -156,25 +155,16 @@ public class IMECommandController implements IController {
         } catch (IndexOutOfBoundsException e) {
           view.showString("Invalid Command Parameters:" + Arrays.toString(line));
         } catch (FileNotFoundException e) {
-          view.showString("Cannot find file:" + Arrays.toString(line));
+          e.printStackTrace();
         } catch (IOException e) {
-          view.showString("IOException during transmission:" + Arrays.toString(line));
+          e.printStackTrace();
         }
-        view.showString("**********************************" +
-                "**********************************************");
-        if (!quit) {
-          view.showString("Enter Command:");
-          view.prefix();
-        }
+        view.showString("***************" +
+                "*****************************************************************");
       }
     }
   }
 
-  /**
-   * This method sets the input scanner to the given Scanner object.
-   *
-   * @param s Scanner object to be used as the input scanner.
-   */
   public void setScanner(Scanner s) {
     this.s = s;
   }

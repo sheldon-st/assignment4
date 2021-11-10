@@ -40,18 +40,6 @@ public interface Filter {
    */
   void lumaScale();
 
-
-  /**
-   * Sharpen Image.
-   */
-  void sharpenImage();
-
-  /**
-   * Blur Image
-   */
-  void blurImage();
-
-
   /**
    * Method to return new filtered image.
    *

@@ -1,8 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-
 import model.Filter;
 import model.FilterImage;
 import model.IMEModel;
@@ -23,10 +21,6 @@ public class FilterImageTest {
   private IModel koala;
   private IModel venice;
   private Filter filter;
-  private Filter filterKernal;
-  private IModel kernalImageFilterTest;
-  private int[][][] simpleImage = {{{1,1,1},{1,1,1},{1,1,1}},{{1,1,1},{1,1,1},{1,1,1}},{{1,1,1},{1,1,1},{1,1,1}}};
-
 
   @Before
   public void setUp() {
@@ -35,8 +29,6 @@ public class FilterImageTest {
     galleryModel.loadImage("Venice", venice);
     galleryModel.loadImage("koala", koala);
     filter = new FilterImage(venice.getImage());
-    kernalImageFilterTest = new SingleImageModel(simpleImage);
-    filterKernal = new FilterImage(kernalImageFilterTest.getImage());
   }
 
   @Test
@@ -63,32 +55,10 @@ public class FilterImageTest {
   }
 
   @Test
-  public void blurImageTest() {
-    filter.blurImage();
-    for (int i= 0; i<filterKernal.getNewImage().length;i++){
-      for (int j= 0; j<filterKernal.getNewImage()[i].length ;j++){
-        for (int k=0; k<filterKernal.getNewImage()[i][j].length;k++){
-          System.out.print(filterKernal.getNewImage()[i][j][k]+" ");
-        }}}
-
-    for (int i= 0; i<filter.getNewImage().length;i++){
-      for (int j= 0; j<filter.getNewImage()[i].length ;j++){
-        for (int k=0; k<filter.getNewImage()[i][j].length;k++){
-          System.out.print(filter.getNewImage()[i][j][k]+" ");
-        }}}
-
-
-
-
-  }
-
-  @Test
   public void blueScale() {
     filter.blueScale();
-    assertEquals(filter.getNewImage()[0][0][0], venice.getImage()[0][0][2]);
-
-    assertTrue(filter.getNewImage()[0][0][0] == venice.getImage()[0][0][0] &&
-            filter.getNewImage()[0][0][1] == venice.getImage()[0][0][1] &&
+    assertTrue(filter.getNewImage()[0][0][0] == venice.getImage()[0][0][2] &&
+            filter.getNewImage()[0][0][1] == venice.getImage()[0][0][2] &&
             filter.getNewImage()[0][0][2] == venice.getImage()[0][0][2]);
 
     assertTrue(filter.getNewImage()[5][6][0] == venice.getImage()[5][6][2] &&
